@@ -1,5 +1,8 @@
 package juego;
 
+import java.awt.Color;
+
+import entorno.Entorno;
 
 public class Label {
 	private Coordenada coordenadas;
@@ -10,8 +13,10 @@ public class Label {
 		this.texto = texto;
 	}
 	
-	public void dibujar() {
+	public void dibujar(Entorno entorno) {
+		entorno.escribirTexto(texto, this.coordenadas.getX(), this.coordenadas.getY());
 		
 	}
+	
 	
 }

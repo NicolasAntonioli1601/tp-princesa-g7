@@ -12,7 +12,7 @@ public class Juego extends InterfaceJuego
 {
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
-	
+	private Label puntaje;
 	// Variables y métodos propios de cada grupo
 	// ...
 	private Fondo fondo;
@@ -22,6 +22,7 @@ public class Juego extends InterfaceJuego
 	{
 		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
 		
+		this.puntaje = new Label(20, 30, "Puntaje: ");
 		this.fondo = new Fondo(400, 300, "fondo.png");
 		
 		this.entorno.iniciar();
@@ -37,8 +38,9 @@ public class Juego extends InterfaceJuego
 	{
 		// Procesamiento de un instante de tiempo
 		// ...
+		entorno.cambiarFont(null, 20, new Color(255, 255, 255));
 		fondo.dibujarse(entorno);
-
+		puntaje.dibujar(entorno);
 	}
 	
 
