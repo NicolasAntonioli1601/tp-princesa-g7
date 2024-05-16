@@ -6,23 +6,17 @@ import entorno.Entorno;
 import entorno.Herramientas;
 
 public class Fondo {
-	private double x;
-	private double y;
-	private Image imgFondo;
-	double anguloFondo;
+	private Coordenada coordenadas;
+	private Image img;
+	private double angulo;
 	
-	public Fondo(double x, double y) {
-		this.x = x;
-		this.y = y;
-		imgFondo = Herramientas.cargarImagen("lollipop-jelly-candies.jpg");
-		anguloFondo=0;
-	}
-	public void dibujarse(Entorno entorno)
-	{
-		entorno.dibujarImagen(imgFondo, this.x, this.y, this.anguloFondo, 0.5);
-	}
-	public void cambiarAngulo() {
-		this.anguloFondo +=0.001;
+	public Fondo(int posicionX, int posicionY, String imagen) {
+		this.coordenadas = new Coordenada(posicionX, posicionY);
+		this.angulo = 0;
+		this.img = Herramientas.cargarImagen(imagen);
 	}
 	
+	public void dibujarse(Entorno entorno) {
+		entorno.dibujarImagen(img, this.coordenadas.getX(), this.coordenadas.getY(), this.angulo, 1);
+	}
 }

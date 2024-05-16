@@ -1,6 +1,11 @@
 package juego;
 
+
+import java.awt.Color;
+import java.awt.Image;
+
 import entorno.Entorno;
+import entorno.Herramientas;
 import entorno.InterfaceJuego;
 
 public class Juego extends InterfaceJuego {
@@ -9,7 +14,6 @@ public class Juego extends InterfaceJuego {
 	private Label puntaje;
 	// Variables y métodos propios de cada grupo
 	// ...
-	private Cuadrado cuadrado;
 	private Fondo fondo;
 	
 	
