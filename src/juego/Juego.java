@@ -1,6 +1,5 @@
 package juego;
 
-
 import java.awt.Color;
 import java.awt.Image;
 
@@ -8,43 +7,63 @@ import entorno.Entorno;
 import entorno.Herramientas;
 import entorno.InterfaceJuego;
 
-public class Juego extends InterfaceJuego
-{
-	// El objeto Entorno que controla el tiempo y otros
-	private Entorno entorno;
+public class Juego extends InterfaceJuego {
+
 	
+	private Cuadrado cuadrado;
+	
+
+	private Entorno entorno;
+
 	// Variables y métodos propios de cada grupo
 	// ...
 	private Fondo fondo;
-	
-	
-	Juego()
-	{
+
+	Juego() {
 		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
-		
+
 		this.fondo = new Fondo(400, 300, "fondo.png");
+
+		
+		cuadrado = new Cuadrado(300,550,50,50);
 		
 		this.entorno.iniciar();
 	}
 
 	/**
-	 * Durante el juego, el método tick() será ejecutado en cada instante y 
-	 * por lo tanto es el método más importante de esta clase. Aquí se debe 
-	 * actualizar el estado interno del juego para simular el paso del tiempo 
-	 * (ver el enunciado del TP para mayor detalle).
+	 * Durante el juego, el método tick() será ejecutado en cada instante y por lo
+	 * tanto es el método más importante de esta clase. Aquí se debe actualizar el
+	 * estado interno del juego para simular el paso del tiempo (ver el enunciado
+	 * del TP para mayor detalle).
 	 */
-	public void tick()
-	{
+	public void tick() {
 		// Procesamiento de un instante de tiempo
 		// ...
 		fondo.dibujarse(entorno);
-
+		cuadrado.Dibujar(entorno);
+		
+		
+		if (cuadrado.getX() >= 30 && entorno.estaPresionada(entorno.TECLA_IZQUIERDA))
+				cuadrado.MoverIzq();
+		
+		if  (cuadrado.getX() <= 770 &&entorno.estaPresionada(entorno.TECLA_DERECHA))
+			cuadrado.MoverDer();
+		
+		if  (cuadrado.getX() >= 30 && cuadrado.getX() <= 770 &&entorno.estaPresionada(entorno.TECLA_ARRIBA))
+			cuadrado.Saltar();
+		if (entorno.estaPresionada(entorno.TECLA_ARRIBA)== false)
+			cuadrado.Caer();
+		
+		cuadrado.DibujarColumna0(entorno);
+		cuadrado.DibujarColumna1(entorno);
+		cuadrado.DibujarColumna2(entorno);
+		cuadrado.DibujarColumna3(entorno);
 	}
+
 	
 
 	@SuppressWarnings("unused")
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		Juego juego = new Juego();
 	}
 }
