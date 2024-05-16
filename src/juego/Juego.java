@@ -1,7 +1,11 @@
 package juego;
 
 
+import java.awt.Color;
+import java.awt.Image;
+
 import entorno.Entorno;
+import entorno.Herramientas;
 import entorno.InterfaceJuego;
 
 public class Juego extends InterfaceJuego
@@ -11,16 +15,15 @@ public class Juego extends InterfaceJuego
 	
 	// Variables y métodos propios de cada grupo
 	// ...
+	private Fondo fondo;
+	
 	
 	Juego()
 	{
-		// Inicializa el objeto entorno
-		this.entorno = new Entorno(this, "Attack on Titan, Final Season - Grupo ... - v1", 800, 600);
-		// hago algun cambio
-		// Inicializar lo que haga falta para el juego
-		// ...
-
-		// Inicia el juego!
+		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
+		
+		this.fondo = new Fondo(400, 300, "fondo.jpg");
+		
 		this.entorno.iniciar();
 	}
 
@@ -34,7 +37,7 @@ public class Juego extends InterfaceJuego
 	{
 		// Procesamiento de un instante de tiempo
 		// ...
-		
+		fondo.dibujarse(entorno);
 
 	}
 	
