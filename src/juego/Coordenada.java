@@ -26,6 +26,8 @@ public class Coordenada {
 	}
 	
 	public void moverX(boolean sentido) {
+		//recibe un booleano para mover el objeto en sentido horizontal, 
+		//si es true, mueve a la derecha, si es false mueve a la izquierda 
 		if (sentido) {
 			this.x ++;
 		}
@@ -35,6 +37,8 @@ public class Coordenada {
 	}
 	
 	public void moverY(boolean sentido) {
+		//recibe un booleano para mover el objeto en sentido vertical, 
+		//si es true, mueve para arriba, si es false mueve para abajo
 		if (sentido) {
 			this.y ++;
 		}
@@ -44,6 +48,8 @@ public class Coordenada {
 	}
 	
 	public void moverXCantidad(boolean sentido, int cantidad) {
+		//recibe un booleano para mover el objeto en sentido horizontal, 
+		//si es true, mueve a la derecha, si es false mueve a la izquierda 
 		if (sentido) {
 			this.x += cantidad;
 		}
@@ -53,6 +59,8 @@ public class Coordenada {
 	}
 	
 	public void moverYCantidad(boolean sentido, int cantidad) {
+		//recibe un booleano para mover el objeto en sentido vertical, y la cantidad de pixeles que se quiere mover 
+		//si es true, mueve para arriba, si es false mueve para abajo
 		if (sentido) {
 			this.y += cantidad;
 		}
