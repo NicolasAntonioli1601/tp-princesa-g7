@@ -6,19 +6,17 @@ import entorno.Entorno;
 import entorno.Herramientas;
 
 public class Fondo {
-	private double posicionX;
-	private double posicionY;
+	private Coordenada coordenadas;
 	private Image img;
 	private double angulo;
 	
 	public Fondo(int posicionX, int posicionY, String imagen) {
-		this.posicionX = posicionX;
-		this.posicionY = posicionY;
+		this.coordenadas = new Coordenada(posicionX, posicionY);
 		this.angulo = 0;
 		this.img = Herramientas.cargarImagen(imagen);
 	}
 	
 	public void dibujarse(Entorno entorno) {
-		entorno.dibujarImagen(img, this.posicionX, this.posicionY, this.angulo, 1);
+		entorno.dibujarImagen(img, this.coordenadas.getX(), this.coordenadas.getY(), this.angulo, 1);
 	}
 }

@@ -22,7 +22,7 @@ public class Juego extends InterfaceJuego
 	{
 		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
 		
-		this.fondo = new Fondo(400, 300, "fondo.jpg");
+		this.fondo = new Fondo(400, 300, "fondo.png");
 		
 		this.entorno.iniciar();
 	}

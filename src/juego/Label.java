@@ -6,8 +6,7 @@ public class Label {
 	private String texto;
 	
 	public Label(int posicionX, int posicionY, String texto) {
-		this.coordenadas.setX(posicionX);
-		this.coordenadas.setY(posicionY);
+		this.coordenadas = new Coordenada(posicionX, posicionY);
 		this.texto = texto;
 	}
 	
