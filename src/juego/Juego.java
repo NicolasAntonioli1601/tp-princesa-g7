@@ -6,22 +6,20 @@ import entorno.InterfaceJuego;
 public class Juego extends InterfaceJuego {
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
-
+	private Label puntaje;
 	// Variables y métodos propios de cada grupo
 	// ...
 	private Cuadrado cuadrado;
 	private Fondo fondo;
-
-	Juego() {
-		// Inicializa el objeto entorno
-		this.entorno = new Entorno(this, "El juego del cuadrado", 800, 600);
-		// hago algun cambio
-		// Inicializar lo que haga falta para el juego
-		// ...
-
-		// Inicia el juego!
-		cuadrado = new Cuadrado(entorno, 5, 5, "ARRIBA");
-		fondo = new Fondo(100, 200);
+	
+	
+	Juego()
+	{
+		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
+		
+		this.puntaje = new Label(20, 30, "Puntaje: ");
+		this.fondo = new Fondo(400, 300, "fondo.png");
+		
 		this.entorno.iniciar();
 	}
 
@@ -34,36 +32,9 @@ public class Juego extends InterfaceJuego {
 	public void tick() {
 		// Procesamiento de un instante de tiempo
 		// ...
-		fondo.cambiarAngulo();
+		entorno.cambiarFont(null, 20, new Color(255, 255, 255));
 		fondo.dibujarse(entorno);
-		if (this.cuadrado != null) {
-			cuadrado.Dibujar(entorno);
-			
-
-			if (this.entorno.estaPresionada(this.entorno.TECLA_DERECHA)&& this.cuadrado.x + this.cuadrado.ancho/2  <800){
-				this.cuadrado.avanzarDerecha();
-			
-			} else if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA) && this.cuadrado.x - this.cuadrado.ancho>0) {
-				this.cuadrado.avanzarIzquierda();
-			
-			} else if (this.entorno.estaPresionada(this.entorno.TECLA_ABAJO) && this.cuadrado.y+ this.cuadrado.altura/2<= 600) {
-				this.cuadrado.avanzarAbajo();
-			
-			} else if (this.entorno.estaPresionada(this.entorno.TECLA_ARRIBA) &&  this.cuadrado.y- this.cuadrado.altura/2>= 0) {
-				this.cuadrado.avanzarArriba();
-			}
-		
-			
-		if (this.entorno.estaPresionada('x')) {
-			this.cuadrado = null;
-			}
-		}
-		
-		if (this.entorno.estaPresionada('y')) {
-			this.cuadrado = new Cuadrado(entorno, 28, 25, "ARRIBA");
-		}
-		
-		
+		puntaje.dibujar(entorno);
 	}
 
 	@SuppressWarnings("unused")
