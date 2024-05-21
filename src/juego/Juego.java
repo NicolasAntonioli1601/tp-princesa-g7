@@ -15,12 +15,11 @@ public class Juego extends InterfaceJuego {
 	// ...
 	private Fondo fondo;
 	private Princesa princesa;
-	private Coordenada coordenada;
+	private Coordenada coordenadas;
 
 	Juego() {
 
 		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
-
 		this.puntaje = new Label(20, 30, "Puntaje: ");
 		this.fondo = new Fondo(400, 300, "fondo.png");
 		this.princesa = new Princesa(400, 540);
@@ -39,16 +38,27 @@ public class Juego extends InterfaceJuego {
 		entorno.cambiarFont(null, 20, new Color(255, 255, 255));
 		fondo.dibujarse(entorno);
 		puntaje.dibujar(entorno);
-
+		//GRAVEDAD, si no esta en el margen de abajo (aprox 550) tiene que decrementar si o si para abajo el y. 
+		//(agregar condicion cuando haya bloques)
 		if (this.princesa != null) {
-			princesa.dibujarse(entorno);
-			if (this.entorno.estaPresionada(this.entorno.TECLA_DERECHA)) {
-				this.princesa.moverDerecha();
-			} else {
-				if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA)) {
-					this.princesa.moverIzquierda();
-				}
+			if (this.princesa.getCoordenadas().getY()<=550) {
+				this.princesa.getCoordenadas().moverYCantidad(false, 5);
 			}
+			
+			this.princesa.setEntorno(entorno);
+			
+			princesa.dibujarse(entorno);
+			
+			if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA)
+					|| this.entorno.estaPresionada(this.entorno.TECLA_DERECHA)
+					|| this.entorno.estaPresionada(this.entorno.TECLA_ARRIBA)) {
+				this.princesa.moverDerecha();
+				this.princesa.moverIzquierda();
+				this.princesa.saltar();
+			} else {
+				this.princesa.img1 = Herramientas.cargarImagen("recursos/princesa-frent.png");
+			}
+
 		}
 	}
 

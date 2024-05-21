@@ -40,10 +40,10 @@ public class Coordenada {
 		//recibe un booleano para mover el objeto en sentido vertical, 
 		//si es true, mueve para arriba, si es false mueve para abajo
 		if (sentido) {
-			this.y ++;
+			this.y --;
 		}
 		else{
-			this.y --;
+			this.y ++;
 		}
 	}
 	
@@ -62,10 +62,10 @@ public class Coordenada {
 		//recibe un booleano para mover el objeto en sentido vertical, y la cantidad de pixeles que se quiere mover 
 		//si es true, mueve para arriba, si es false mueve para abajo
 		if (sentido) {
-			this.y += cantidad;
+			this.y -= cantidad;
 		}
 		else{
-			this.y -= cantidad;
+			this.y += cantidad;
 		}
 	}
 }
