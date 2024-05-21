@@ -13,13 +13,11 @@ import entorno.InterfaceJuego;
 public class Juego extends InterfaceJuego {
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
-	private Label puntaje;
 	// Variables y métodos propios de cada grupo
 	// ...
 	private Cuadrado cuadrado;
 	private Cubo cubo;
 	Random random = new Random();
-	private Entorno entorno;
 	private Fondo fondo;
 	private Princesa princesa;
 	private Coordenada coordenadas;
@@ -37,7 +35,7 @@ public class Juego extends InterfaceJuego {
 		cuadrado = new Cuadrado(300,550,50,50);
 		cubo  =new Cubo (300,550,50,50,true,true);
 		this.princesa = new Princesa(400, 540);
-
+		
 		cubo.AgregarCubos(Columna1, 16, 450);
 		cubo.AgregarCubos(Columna2, 16, 300);
 		cubo.AgregarCubos(Columna3, 16, 150);
@@ -57,7 +55,6 @@ public class Juego extends InterfaceJuego {
 		// ...
 		entorno.cambiarFont(null, 20, new Color(255, 255, 255));
 		fondo.dibujarse(entorno);
-		puntaje.dibujar(entorno);
 		//GRAVEDAD, si no esta en el margen de abajo (aprox 550) tiene que decrementar si o si para abajo el y. 
 		//(agregar condicion cuando haya bloques)
 
