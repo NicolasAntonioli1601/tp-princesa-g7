@@ -97,7 +97,7 @@ public class Cuadrado {
 	}
 
 	public void DibujarColumna0 (Entorno e) {
-		int PosY = 0;
+		int PosY = 1;
 		int CantCuadrados= 17;
 		Cuadrado cuadrado;
 		while (CantCuadrados != 0) {
@@ -111,8 +111,8 @@ public class Cuadrado {
 	}
 
 	public void DibujarColumna1 (Entorno e) {
-			int PosY = 0;
-			int CantCuadrados= 17;
+			int PosY = 25;
+			int CantCuadrados= 16;
 			Cuadrado cuadrado;
 			while (CantCuadrados != 0) {
 				cuadrado = new Cuadrado(PosY, 450, 50, 50);
@@ -125,8 +125,8 @@ public class Cuadrado {
 		}
 
 	public void DibujarColumna2 (Entorno e) {
-				int PosY = 0;
-				int CantCuadrados= 17;
+				int PosY = 25;
+				int CantCuadrados= 16;
 				Cuadrado cuadrado;
 				while (CantCuadrados != 0) {
 					cuadrado = new Cuadrado(PosY,300, 50, 50);
@@ -141,8 +141,8 @@ public class Cuadrado {
 			}
 
 	public void DibujarColumna3(Entorno e) {
-		int PosY = 0;
-		int CantCuadrados = 17;
+		int PosY = 25;
+		int CantCuadrados = 16;
 		 
 		Cuadrado cuadrado;
 		while (CantCuadrados != 0) {
