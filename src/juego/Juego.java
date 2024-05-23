@@ -21,26 +21,25 @@ public class Juego extends InterfaceJuego {
 	private Fondo fondo;
 	private Princesa princesa;
 	private Coordenada coordenadas;
-	List<Cubo> Columna1 =new ArrayList<>();
-	List <Cubo> Columna2 = new ArrayList <>();
-	List <Cubo> Columna3 = new ArrayList <>();
-		
-	
-	
+	private Tiro tiro;
+	List<Cubo> Columna1 = new ArrayList<>();
+	List<Cubo> Columna2 = new ArrayList<>();
+	List<Cubo> Columna3 = new ArrayList<>();
+
 	Juego() {
-		
+
 		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
 		this.fondo = new Fondo(400, 300, "fondo.png");
 
-		cuadrado = new Cuadrado(300,550,50,50);
-		cubo  =new Cubo (300,550,50,50,true,true);
-		this.princesa = new Princesa(400, 540);
-		
+		cuadrado = new Cuadrado(300, 550, 50, 50);
+		cubo = new Cubo(300, 550, 50, 50, true, true);
+		this.princesa = new Princesa(400, 540, 50, 50);
+
 		cubo.AgregarCubos(Columna1, 16, 450);
 		cubo.AgregarCubos(Columna2, 16, 300);
 		cubo.AgregarCubos(Columna3, 16, 150);
-		cubo.Destruircubo(Columna1,cuadrado,entorno);
-		
+		cubo.Destruircubo(Columna1, princesa, entorno);
+
 		this.entorno.iniciar();
 	}
 
@@ -55,42 +54,41 @@ public class Juego extends InterfaceJuego {
 		// ...
 		entorno.cambiarFont(null, 20, new Color(255, 255, 255));
 		fondo.dibujarse(entorno);
-		//GRAVEDAD, si no esta en el margen de abajo (aprox 550) tiene que decrementar si o si para abajo el y. 
-		//(agregar condicion cuando haya bloques)
+		cubo.DibujarLista(Columna1, entorno);
+		cubo.DibujarLista(Columna2, entorno);
+		cubo.DibujarLista(Columna3, entorno);
+		cubo.Destruircubo(Columna1, princesa, entorno);
 
-		cuadrado.Dibujar(entorno);
-		
-		
-		
-		if (cuadrado.getX() >= 30 && entorno.estaPresionada(entorno.TECLA_IZQUIERDA))
-				cuadrado.MoverIzq();
-		
-		if  (cuadrado.getX() <= 770 &&entorno.estaPresionada(entorno.TECLA_DERECHA))
-			cuadrado.MoverDer();
-		
-		if  (cuadrado.getX() >= 30 && cuadrado.getX() <= 770 &&entorno.estaPresionada(entorno.TECLA_ARRIBA))
-			cuadrado.Saltar();
-		if (entorno.estaPresionada(entorno.TECLA_ARRIBA)== false)
-			cuadrado.Caer();
-		
-		
-		cubo.DibujarLista(Columna1,entorno);
-		cubo.DibujarLista(Columna2,entorno);
-		cubo.DibujarLista(Columna3,entorno);
-		cubo.Destruircubo(Columna1,cuadrado,entorno);
+		// PRINCESA
+
+		// GRAVEDAD, si no esta en el margen de abajo (aprox 550) tiene que decrementar
+		// si o si para abajo el y.
+		// (agregar condicion cuando haya bloques)
 
 		if (this.princesa != null) {
-			if (this.princesa.getCoordenadas().getY()<=550) {
+			if (this.princesa.getCoordenadas().getY() <= 550 && this.princesa.sobreFila() == false) {
 				this.princesa.getCoordenadas().moverYCantidad(false, 5);
 			}
-			
+
 			this.princesa.setEntorno(entorno);
-			
+
 			princesa.dibujarse(entorno);
-			
+
+			if (this.entorno.estaPresionada('c') && this.princesa.tiro == null) {
+				this.princesa.dispara();
+				this.princesa.tiro.dibujarse(entorno);
+			}
+			if (this.princesa.tiro != null) {
+				if (this.princesa.tiro.estaEnLimite()) {
+					this.princesa.tiro.dibujarse(entorno);
+					this.princesa.tiro.moverse();
+				} else {
+					this.princesa.tiro = null;
+				}
+			}
+
 			if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA)
-					|| this.entorno.estaPresionada(this.entorno.TECLA_DERECHA)
-					|| this.entorno.estaPresionada(this.entorno.TECLA_ARRIBA)) {
+					|| this.entorno.estaPresionada(this.entorno.TECLA_DERECHA) || this.entorno.estaPresionada('x')) {
 				this.princesa.moverDerecha();
 				this.princesa.moverIzquierda();
 				this.princesa.saltar();
@@ -102,6 +100,10 @@ public class Juego extends InterfaceJuego {
 	}
 
 	
+
+	public boolean colision(double x1, double y1, double x2, double y2, double dist) {
+		return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < dist * dist;
+	}
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {

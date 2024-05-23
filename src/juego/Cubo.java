@@ -131,22 +131,21 @@ public class Cubo {
 		}
 	}
 
-	public void Destruircubo(List<Cubo> nombre,Cuadrado cuadrado,Entorno e) {
-		Cubo datos;
-		for (int i = 0; i < nombre.size(); i++) {
-			if (nombre.get(i).isTipo()==true && cuadrado.getY() == nombre.get(i).getY() &&
-			cuadrado.getX() == nombre.get(i).getX() ) {
-				datos = nombre.get(i);
-				datos.DibujarLadrillo(e,datos.getX(),datos.getX(),25,10);
-				nombre.remove(i);
-				break;
-				
-		}
-			
-		}
-		
-	}
+	public void Destruircubo(List<Cubo> nombre, Princesa princesa ,Entorno e) {
+        Cubo datos;
+        for (int i = 0; i < nombre.size(); i++) {
+            if (nombre.get(i).isTipo()==true && princesa.getCoordenadas().getY() <= nombre.get(i).getY() &&
+                    princesa.getCoordenadas().getX() <= nombre.get(i).getX() ) {
+                datos = nombre.get(i);
+                datos.DibujarLadrillo(e,datos.getX(),datos.getX(),25,10);
+                nombre.remove(i);
+                break;
 
+        }
+
+        }
+
+    }
 	public void CuboDestruido (double x,double y,Entorno e) {
 		Cubo Ladrillo1;
 		Cubo Ladrillo2;
@@ -156,5 +155,13 @@ public class Cubo {
 		Ladrillo1.DibujarLadrillo(e, x+30, y+50, 25,10);
 		Ladrillo2.DibujarLadrillo(e, x+30, y+45, 25,10);
 		
+	}
+	public boolean cuboVacio(List<Cubo> nombre) {
+		for (int i=0; i<nombre.size();i++) {
+			if (nombre.get(i)==null) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
