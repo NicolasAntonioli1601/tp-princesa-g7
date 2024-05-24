@@ -96,7 +96,7 @@ public class Juego extends InterfaceJuego {
 				this.princesa.moverIzquierda();
 				this.princesa.saltar();
 			} else {
-				this.princesa.img1 = Herramientas.cargarImagen("recursos/princesa-frent.png");
+				this.princesa.img1 = Herramientas.cargarImagen("recursos/princesa-frente.png");
 			}
 
 		}

@@ -26,14 +26,14 @@ public class Princesa {
 
 	public Princesa(int posicionX, int posicionY, double ancho, double altura) {
 		this.setCoordenadas(new Coordenada(posicionX, posicionY));
-		this.img1 = Herramientas.cargarImagen("recursos/princesa-frent.png");
+		this.img1 = Herramientas.cargarImagen("recursos/princesa-frente.png");
 		this.ancho = ancho;
 		this.altura = altura;
 		this.posicionDerecha=false;
 	}
 
 	public void dibujarse(Entorno entorno) {
-		entorno.dibujarImagen(img1, this.getCoordenadas().getX(), this.getCoordenadas().getY(), 0, 0.3);
+		entorno.dibujarImagen(img1, this.getCoordenadas().getX(), this.getCoordenadas().getY(), 0, 0.4);
 	}
 
 	public void moverDerecha() {
@@ -58,7 +58,7 @@ public class Princesa {
 		char a = 'x';
 		if (this.entorno.estaPresionada(a) && this.getCoordenadas().getY() >= 50) {
 			this.img1 = Herramientas.cargarImagen("recursos/princesa-salto.png");
-			this.getCoordenadas().moverYCantidad(true, 30);
+			this.getCoordenadas().moverYCantidad(true, 20);
 
 		}
 	}
@@ -67,6 +67,7 @@ public class Princesa {
 	public void dispara() {
 
 		this.tiro = new Tiro(this.coordenadas.getX() - 20, this.coordenadas.getY(), this.posicionDerecha);
+		
 	}
 
 	public Coordenada getCoordenadas() {
