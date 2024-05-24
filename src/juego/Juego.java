@@ -73,7 +73,10 @@ public class Juego extends InterfaceJuego {
 			this.princesa.setEntorno(entorno);
 
 			princesa.dibujarse(entorno);
-
+			
+			
+			// DISPARO (falta ver para que lado dispara)
+			
 			if (this.entorno.estaPresionada('c') && this.princesa.tiro == null) {
 				this.princesa.dispara();
 				this.princesa.tiro.dibujarse(entorno);

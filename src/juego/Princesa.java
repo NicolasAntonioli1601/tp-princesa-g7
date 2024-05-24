@@ -10,10 +10,11 @@ public class Princesa {
 	private Coordenada coordenadas;
 	double ancho;
 	double altura;
-	Image img1;
 	private Entorno entorno;
-	private Cubo cubo;
+	boolean posicionDerecha;
+	Image img1;
 	Tiro tiro;
+	
 
 	public Entorno getEntorno() {
 		return entorno;
@@ -28,6 +29,7 @@ public class Princesa {
 		this.img1 = Herramientas.cargarImagen("recursos/princesa-frent.png");
 		this.ancho = ancho;
 		this.altura = altura;
+		this.posicionDerecha=false;
 	}
 
 	public void dibujarse(Entorno entorno) {
@@ -38,6 +40,7 @@ public class Princesa {
 		if (this.entorno.estaPresionada(this.entorno.TECLA_DERECHA) && this.getCoordenadas().getX() <= 750) {
 			this.getCoordenadas().moverXCantidad(true, 3);
 			this.img1 = Herramientas.cargarImagen("recursos/princesa-der.png");
+			this.posicionDerecha=true;
 		}
 	}
 
@@ -45,8 +48,10 @@ public class Princesa {
 		if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA) && this.getCoordenadas().getX() >= 50) {
 			this.getCoordenadas().moverXCantidad(false, 3);
 			this.img1 = Herramientas.cargarImagen("recursos/princesa-izq.png");
-
+			this.posicionDerecha=false;
 		}
+		
+		
 	}
 
 	public void saltar() {
@@ -58,27 +63,10 @@ public class Princesa {
 		}
 	}
 
-	public boolean sobreFila() {
-		if (this.getCoordenadas().getY() == 400 || this.getCoordenadas().getY() == 250
-				|| (this.getCoordenadas().getY() == 95)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean sobreCubo(List<Cubo> nombre) {
-		for (int i = 0; i < nombre.size(); i++) {
-			if (nombre.get(i).getX() == this.getCoordenadas().getX()) {
-				return false;
-			}
-		}
-		return true;
-	}
 
 	public void dispara() {
 
-		this.tiro = new Tiro(this.coordenadas.getX() - 20, this.coordenadas.getY());
+		this.tiro = new Tiro(this.coordenadas.getX() - 20, this.coordenadas.getY(), this.posicionDerecha);
 	}
 
 	public Coordenada getCoordenadas() {
@@ -87,5 +75,13 @@ public class Princesa {
 
 	public void setCoordenadas(Coordenada coordenadas) {
 		this.coordenadas = coordenadas;
+	}
+	public boolean sobreFila() {
+		if (this.getCoordenadas().getY() == 400 || this.getCoordenadas().getY() == 250
+				|| (this.getCoordenadas().getY() == 95)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

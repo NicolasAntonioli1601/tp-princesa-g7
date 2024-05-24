@@ -11,12 +11,14 @@ public class Tiro {
 	Image imgTiro;
 	Entorno entorno;
 	int velocidad;
+	boolean posicion;
 
-	public Tiro(int x, int y) {
+	public Tiro(int x, int y, boolean posicion) {
 		this.x = x;
 		this.y = y;
 		this.imgTiro = Herramientas.cargarImagen("recursos/tiro.png");
 		this.velocidad = 10;
+		this.posicion=posicion;
 	}
 
 	public void dibujarse(Entorno entorno) {
@@ -24,7 +26,13 @@ public class Tiro {
 	}
 
 	public void moverse() {
-		this.x += this.velocidad;
+		if (posicion== true) {
+			this.x += this.velocidad;	
+		}
+		else {
+			this.x -= this.velocidad;
+		}
+		
 	}
 
 	public boolean estaEnLimite() {
