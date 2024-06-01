@@ -21,25 +21,24 @@ public class Juego extends InterfaceJuego {
 	private Fondo fondo;
 	private Princesa princesa;
 	private Coordenada coordenadas;
-	List<Cubo> Columna1 =new ArrayList<>();
-	List <Cubo> Columna2 = new ArrayList <>();
-	List <Cubo> Columna3 = new ArrayList <>();
-		
 	
-	
+	double[] Fila3Fijo = new double[16];double[] Fila2Fijo = new double[16];double[] Fila1Fijo = new double[16];
+	double[] Fila3Random = new double[16];double[] Fila2Random = new double[16];double[] Fila1Random = new double[16];
 	Juego() {
-		
+
 		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
 		this.fondo = new Fondo(400, 300, "fondo.png");
 
-		cuadrado = new Cuadrado(300,550,50,50);
-		cubo  =new Cubo (300,550,50,50,true,true);
+		cuadrado = new Cuadrado(300, 550, 50, 50);
+		cubo = new Cubo(300, 550, 50, 50, true, true);
+		cubo.ListaAgregar(Fila1Fijo,Fila1Random);
+		cubo.ListaAgregar(Fila2Fijo,Fila2Random);
+		cubo.ListaAgregar(Fila3Fijo,Fila3Random);
+		System.out.println(Fila1Random.length);
+
 		this.princesa = new Princesa(400, 540);
+		//cubo.Colision(princesa,Fila1Fijo ,Fila1Random );
 		
-		cubo.AgregarCubos(Columna1, 16, 450);
-		cubo.AgregarCubos(Columna2, 16, 300);
-		cubo.AgregarCubos(Columna3, 16, 150);
-		cubo.Destruircubo(Columna1,cuadrado,entorno);
 		
 		this.entorno.iniciar();
 	}
@@ -55,39 +54,29 @@ public class Juego extends InterfaceJuego {
 		// ...
 		entorno.cambiarFont(null, 20, new Color(255, 255, 255));
 		fondo.dibujarse(entorno);
-		//GRAVEDAD, si no esta en el margen de abajo (aprox 550) tiene que decrementar si o si para abajo el y. 
-		//(agregar condicion cuando haya bloques)
+		// GRAVEDAD, si no esta en el margen de abajo (aprox 550) tiene que decrementar
+		// si o si para abajo el y.
+		// (agregar condicion cuando haya bloques)
 
-		cuadrado.Dibujar(entorno);
 		
-		
-		
-		if (cuadrado.getX() >= 30 && entorno.estaPresionada(entorno.TECLA_IZQUIERDA))
-				cuadrado.MoverIzq();
-		
-		if  (cuadrado.getX() <= 770 &&entorno.estaPresionada(entorno.TECLA_DERECHA))
-			cuadrado.MoverDer();
-		
-		if  (cuadrado.getX() >= 30 && cuadrado.getX() <= 770 &&entorno.estaPresionada(entorno.TECLA_ARRIBA))
-			cuadrado.Saltar();
-		if (entorno.estaPresionada(entorno.TECLA_ARRIBA)== false)
-			cuadrado.Caer();
-		
-		
-		cubo.DibujarLista(Columna1,entorno);
-		cubo.DibujarLista(Columna2,entorno);
-		cubo.DibujarLista(Columna3,entorno);
-		cubo.Destruircubo(Columna1,cuadrado,entorno);
 
+		
+		cubo.DibujarCubos(entorno, Fila1Fijo, Fila1Random, 450);
+		cubo.DibujarCubos(entorno, Fila2Fijo, Fila2Random, 300);
+		cubo.DibujarCubos(entorno, Fila3Fijo, Fila3Random, 150);
+		
 		if (this.princesa != null) {
-			if (this.princesa.getCoordenadas().getY()<=550) {
+			if (this.princesa.getCoordenadas().getY() <= 540  )   {		//550
 				this.princesa.getCoordenadas().moverYCantidad(false, 5);
-			}
-			
+			} 
+//			if (this.princesa.getCoordenadas().getY() <= 425 )   {
+//				this.princesa.getCoordenadas().setY(400);
+//				
+//			}
 			this.princesa.setEntorno(entorno);
-			
+
 			princesa.dibujarse(entorno);
-			
+
 			if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA)
 					|| this.entorno.estaPresionada(this.entorno.TECLA_DERECHA)
 					|| this.entorno.estaPresionada(this.entorno.TECLA_ARRIBA)) {
@@ -99,9 +88,10 @@ public class Juego extends InterfaceJuego {
 			}
 
 		}
+		cubo.Colision(princesa,Fila1Fijo ,Fila1Random,450 );
+		cubo.Colision(princesa,Fila2Fijo ,Fila2Random,300 );
+		cubo.Colision(princesa,Fila3Fijo ,Fila3Random,150 );
 	}
-
-	
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {

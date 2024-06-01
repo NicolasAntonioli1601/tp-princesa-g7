@@ -1,5 +1,6 @@
 package juego;
 
+import java.awt.Color;
 import java.awt.Image;
 
 import entorno.Entorno;
@@ -26,6 +27,8 @@ public class Princesa {
 		this.setCoordenadas(new Coordenada(posicionX, posicionY));
 		this.img1 = Herramientas.cargarImagen("recursos/princesa-frent.png");
 		this.angulo = 0;
+		this.altura= 50;
+		this.ancho = 50;
 	}
 	
 	public void dibujarse(Entorno entorno) {
@@ -62,4 +65,15 @@ public class Princesa {
 	public void setCoordenadas(Coordenada coordenadas) {
 		this.coordenadas = coordenadas;
 	}
+	public void Dibujarcuadrado(Entorno e) {
+		e.dibujarRectangulo(coordenadas.getX(), coordenadas.getY(), ancho, altura, 0, Color.RED);
+	
+	
+	}
+	
+	public boolean EstaColision(double x1, double y1, double x2, double y2, double dist) {
+		return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < dist * dist;
+}
+
+	
 }

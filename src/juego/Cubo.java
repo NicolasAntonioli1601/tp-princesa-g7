@@ -13,9 +13,8 @@ public class Cubo {
 	private int ancho;
 	private boolean estado;
 	private boolean tipo;
-	Image imgCubo, imgcubo2,Ladrillo;
+	Image imgCubo, imgcubo2, Ladrillo;
 	Random random = new Random();
-	
 
 	public Cubo(double x, double y, int altura, int ancho, boolean estado, boolean tipo) {
 		this.y = y;
@@ -74,25 +73,57 @@ public class Cubo {
 		this.tipo = tipo;
 	}
 
-	public void AgregarCubos(List<Cubo> nombre, int Cantidad, double posY) {
-
-		int cubo1= random.nextInt(16);
-		int cubo2= random.nextInt(16);
-		int cubo3= random.nextInt(16);
-		int cubo4= random.nextInt(16);
+	public void ListaAgregar(double[] listaFijo, double[] listaRandom) {
+		int cubo1 = random.nextInt(15);
+		int cubo2 = random.nextInt(15);
+		int cubo3 = random.nextInt(15);
+		int cubo4 = random.nextInt(15);
 		int posicionX = 25;
-		
-		while (Cantidad != 0) {
-			if (cubo1==Cantidad ||cubo2==Cantidad||cubo3==Cantidad||cubo4==Cantidad ) {
-				Cubo cubo = new Cubo(posicionX, posY, 50, 50, false, true);
-				nombre.add(cubo);
-				Cantidad--;
+		int contador = 0;
+		int contadorListaRandom = 0;
+		while (contador <= 15) {
+			if (cubo1 == contador || cubo2 == contador || cubo3 == contador || cubo4 == contador) {
+				listaRandom[contador] = posicionX;
+//			System.out.println("listaRandom");
+//			System.out.println(listaRandom[contador]);
 				posicionX = posicionX + 50;
-			}else{
-				Cubo cubo = new Cubo(posicionX, posY, 50, 50, false, false);
-				nombre.add(cubo);
-				Cantidad--;
+				contador++;
+				contadorListaRandom++;
+			} else {
+				listaFijo[contador] = posicionX;
+				// System.out.println("listaFijo");
+				// System.out.println(listaFijo[contador]);
 				posicionX = posicionX + 50;
+				contador++;
+			}
+
+		}
+		System.out.println(contadorListaRandom);
+		double[] ListaRandomNew = new double[contadorListaRandom];
+		int cont = 0;
+		for (int i = 0; i < listaRandom.length; i++) {
+			if (listaRandom[i] != 0.0) {
+				ListaRandomNew[cont] = listaRandom[i];
+				cont++;
+			}
+		}
+		listaRandom = ListaRandomNew;
+
+	}
+
+	public void DibujarCubos(Entorno e, double[] listaFijo, double[] ListaRandom, double y) {
+		double a = 0.0;
+		for (int ejex = 0; ejex < listaFijo.length; ejex++) {
+			if (listaFijo[ejex] != a) {
+				Cubo cubo = new Cubo(listaFijo[ejex], y, 50, 50, false, true);
+				cubo.DibujarCuboFijo(e, ejex, y, 50, 50);
+			}
+		}
+		for (int ejex = 0; ejex < ListaRandom.length; ejex++) {
+			if (ListaRandom[ejex] != a) {
+				// System.out.println(ListaRandom[ejex]);
+				Cubo cubo = new Cubo(ListaRandom[ejex], y, 50, 50, false, false);
+				cubo.DibujarCuboRomp(e, ListaRandom[ejex], y, 50, 50);
 			}
 		}
 	}
@@ -100,61 +131,52 @@ public class Cubo {
 	public void DibujarCuboFijo(Entorno e, double x, double y, int ancho, int altura) {
 		imgCubo = Herramientas.cargarImagen("cubo fijo.png");
 		e.dibujarImagen(imgCubo, this.x, this.y, 0, 0.3);
-
 	}
 
 	public void DibujarCuboRomp(Entorno e, double x, double y, int ancho, int altura) {
 		imgcubo2 = Herramientas.cargarImagen("cuadrado.png");
 		e.dibujarImagen(imgcubo2, this.x, this.y, 0, 0.1);
-
-	}
-	public void DibujarLadrillo(Entorno e, double x, double y, int ancho, int altura) {
-		imgcubo2 = Herramientas.cargarImagen("ladrillo.png");
-		e.dibujarImagen(imgcubo2, this.x, this.y, 0, 0.6);
-
 	}
 
-	public void DibujarLista(List<Cubo> nombre, Entorno e) {
-		
-		
-		for (int i = 0; i < nombre.size(); i++) {
-			if (nombre.get(i).isTipo() != true) {
-				nombre.get(i).DibujarCuboFijo(e, nombre.get(i).getX(), nombre.get(i).getY(), nombre.get(i).getAncho(),
-						nombre.get(i).getAltura());
-				
-			} else {
-				nombre.get(i).DibujarCuboRomp(e, nombre.get(i).getX(), nombre.get(i).getY(), nombre.get(i).getAncho(),
-						nombre.get(i).getAltura());
-				
+	public void Colision(Princesa princesa, double ListaFijo[], double listaRandom[],int y) {
+
+		for (int ejex = 0; ejex < listaRandom.length; ejex++) {
+			
+			if ((princesa.getCoordenadas().getX() - listaRandom[ejex])
+					* (princesa.getCoordenadas().getX() - listaRandom[ejex])
+					+ (princesa.getCoordenadas().getY() - y) * (princesa.getCoordenadas().getY() - y) <30* 30) {
+				System.out.println("colision");
+				listaRandom[ejex] = 0.0;
+					
+				}
+//			if(listaRandom[ejex]== 0.0 && princesa.getCoordenadas().getY() ==400) {
+//				princesa.getCoordenadas().setY(550);
+//				princesa.getCoordenadas().moverYCantidad(false, 5);
+//			}
+//			
+		}
+		for (int ejex = 0; ejex < ListaFijo.length; ejex++) {
+			if ((princesa.getCoordenadas().getX() - ListaFijo[ejex])
+					* (princesa.getCoordenadas().getX() - ListaFijo[ejex])
+					+ (princesa.getCoordenadas().getY() - y) * (princesa.getCoordenadas().getY() - y) < 45* 45 ){
+						princesa.getCoordenadas().setY(y-50);	
+						
+			}	
+			
+		}
+	}
+
+	public boolean colision1(double x1, double y1, double x2, double y2, double dist) {
+		return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < dist * dist;
+	}
+
+	public void BorrarCubo(Princesa princesa, double listaRandom[]) {
+		for (int ejex = 0; ejex < listaRandom.length; ejex++) {
+			if (colision1(princesa.getCoordenadas().getX(), princesa.getCoordenadas().getY(), listaRandom[ejex], 450,
+					60) == true) {
+
 			}
 
 		}
-	}
-
-	public void Destruircubo(List<Cubo> nombre,Cuadrado cuadrado,Entorno e) {
-		Cubo datos;
-		for (int i = 0; i < nombre.size(); i++) {
-			if (nombre.get(i).isTipo()==true && cuadrado.getY() == nombre.get(i).getY() &&
-			cuadrado.getX() == nombre.get(i).getX() ) {
-				datos = nombre.get(i);
-				datos.DibujarLadrillo(e,datos.getX(),datos.getX(),25,10);
-				nombre.remove(i);
-				break;
-				
-		}
-			
-		}
-		
-	}
-
-	public void CuboDestruido (double x,double y,Entorno e) {
-		Cubo Ladrillo1;
-		Cubo Ladrillo2;
-		Ladrillo1 = new Cubo(x,y,25,10, true, true);
-		Ladrillo2 = new Cubo(x,y,25,10, true, true);
-		
-		Ladrillo1.DibujarLadrillo(e, x+30, y+50, 25,10);
-		Ladrillo2.DibujarLadrillo(e, x+30, y+45, 25,10);
-		
 	}
 }
