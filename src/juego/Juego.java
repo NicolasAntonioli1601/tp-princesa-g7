@@ -21,11 +21,9 @@ public class Juego extends InterfaceJuego {
 	private Fondo fondo;
 	private Princesa princesa;
 	private Coordenada coordenadas;
-	private Tiro tiro;
-	List<Cubo> Columna1 = new ArrayList<>();
-	List<Cubo> Columna2 = new ArrayList<>();
-	List<Cubo> Columna3 = new ArrayList<>();
-
+	
+	double[] Fila3Fijo = new double[16];double[] Fila2Fijo = new double[16];double[] Fila1Fijo = new double[16];
+	double[] Fila3Random = new double[16];double[] Fila2Random = new double[16];double[] Fila1Random = new double[16];
 	Juego() {
 
 		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
@@ -33,13 +31,15 @@ public class Juego extends InterfaceJuego {
 
 		cuadrado = new Cuadrado(300, 550, 50, 50);
 		cubo = new Cubo(300, 550, 50, 50, true, true);
-		this.princesa = new Princesa(400, 540, 50, 50);
+		cubo.ListaAgregar(Fila1Fijo,Fila1Random);
+		cubo.ListaAgregar(Fila2Fijo,Fila2Random);
+		cubo.ListaAgregar(Fila3Fijo,Fila3Random);
+		System.out.println(Fila1Random.length);
 
-		cubo.AgregarCubos(Columna1, 16, 450);
-		cubo.AgregarCubos(Columna2, 16, 300);
-		cubo.AgregarCubos(Columna3, 16, 150);
-		cubo.Destruircubo(Columna1, princesa, entorno);
-
+		this.princesa = new Princesa(400, 540);
+		//cubo.Colision(princesa,Fila1Fijo ,Fila1Random );
+		
+		
 		this.entorno.iniciar();
 	}
 
@@ -54,41 +54,28 @@ public class Juego extends InterfaceJuego {
 		// ...
 		entorno.cambiarFont(null, 20, new Color(255, 255, 255));
 		fondo.dibujarse(entorno);
-		cubo.DibujarLista(Columna1, entorno);
-		cubo.DibujarLista(Columna2, entorno);
-		cubo.DibujarLista(Columna3, entorno);
-		cubo.Destruircubo(Columna1, princesa, entorno);
-
-		// PRINCESA
-
 		// GRAVEDAD, si no esta en el margen de abajo (aprox 550) tiene que decrementar
 		// si o si para abajo el y.
 		// (agregar condicion cuando haya bloques)
 
-		if (this.princesa != null) {
-			if (this.princesa.getCoordenadas().getY() <= 550 && this.princesa.sobreFila() == false) {
-				this.princesa.getCoordenadas().moverYCantidad(false, 5);
-			}
+		
 
+		
+		cubo.DibujarCubos(entorno, Fila1Fijo, Fila1Random, 450);
+		cubo.DibujarCubos(entorno, Fila2Fijo, Fila2Random, 300);
+		cubo.DibujarCubos(entorno, Fila3Fijo, Fila3Random, 150);
+		
+		if (this.princesa != null) {
+			if (this.princesa.getCoordenadas().getY() <= 540  )   {		//550
+				this.princesa.getCoordenadas().moverYCantidad(false, 5);
+			} 
+//			if (this.princesa.getCoordenadas().getY() <= 425 )   {
+//				this.princesa.getCoordenadas().setY(400);
+//				
+//			}
 			this.princesa.setEntorno(entorno);
 
 			princesa.dibujarse(entorno);
-			
-			
-			// DISPARO (falta ver para que lado dispara)
-			
-			if (this.entorno.estaPresionada('c') && this.princesa.tiro == null) {
-				this.princesa.dispara();
-				this.princesa.tiro.dibujarse(entorno);
-			}
-			if (this.princesa.tiro != null) {
-				if (this.princesa.tiro.estaEnLimite()) {
-					this.princesa.tiro.dibujarse(entorno);
-					this.princesa.tiro.moverse();
-				} else {
-					this.princesa.tiro = null;
-				}
-			}
 
 			if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA)
 					|| this.entorno.estaPresionada(this.entorno.TECLA_DERECHA) || this.entorno.estaPresionada('x')) {
@@ -100,12 +87,9 @@ public class Juego extends InterfaceJuego {
 			}
 
 		}
-	}
-
-	
-
-	public boolean colision(double x1, double y1, double x2, double y2, double dist) {
-		return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < dist * dist;
+		cubo.Colision(princesa,Fila1Fijo ,Fila1Random,450 );
+		cubo.Colision(princesa,Fila2Fijo ,Fila2Random,300 );
+		cubo.Colision(princesa,Fila3Fijo ,Fila3Random,150 );
 	}
 
 	@SuppressWarnings("unused")
