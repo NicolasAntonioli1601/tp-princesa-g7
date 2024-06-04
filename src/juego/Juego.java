@@ -36,7 +36,7 @@ public class Juego extends InterfaceJuego {
 		cubo.ListaAgregar(Fila3Fijo,Fila3Random);
 		System.out.println(Fila1Random.length);
 
-		this.princesa = new Princesa(400, 540);
+		this.princesa = new Princesa(400, 540, 50, 50);
 		//cubo.Colision(princesa,Fila1Fijo ,Fila1Random );
 		
 		
@@ -76,7 +76,19 @@ public class Juego extends InterfaceJuego {
 			this.princesa.setEntorno(entorno);
 
 			princesa.dibujarse(entorno);
-
+			if(this.entorno.estaPresionada('c') && this.princesa.tiro == null) {
+				this.princesa.dispara();
+				this.princesa.tiro.dibujarse(entorno);
+			}
+			if(this.princesa.tiro != null) {
+				if(this.princesa.tiro.estaEnLimite()) {
+					this.princesa.tiro.dibujarse(entorno);
+					this.princesa.tiro.moverse();
+				}
+				else {
+					this.princesa.tiro = null;
+				}
+			}
 			if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA)
 					|| this.entorno.estaPresionada(this.entorno.TECLA_DERECHA) || this.entorno.estaPresionada('x')) {
 				this.princesa.moverDerecha();

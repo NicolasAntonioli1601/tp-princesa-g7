@@ -52,13 +52,13 @@ public class Fila {
 	public void setCoordenadas(Coordenada coordenadas) {
 		this.coordenadas = coordenadas;
 	}
-	
+	/*
 	public void dibujarFilas(Entorno entorno) {
 		for(int x = 0; x < cubos.length; x++) {
 			//System.out.println("dibujando cubo en posiciones x: " + cubo.getX() + ", y: "+cubo.getY());
 			cubos[x].dibujarCubo(entorno);
 		}
-	}
+	}*/
 	
 	
 }

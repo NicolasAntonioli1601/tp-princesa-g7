@@ -186,7 +186,7 @@ public class Cubo {
             if (nombre.get(i).isTipo()==true && princesa.getCoordenadas().getY() <= nombre.get(i).getY() &&
                     princesa.getCoordenadas().getX() <= nombre.get(i).getX() ) {
                 datos = nombre.get(i);
-                datos.DibujarLadrillo(e,datos.getX(),datos.getX(),25,10);
+                //datos.DibujarLadrillo(e,datos.getX(),datos.getX(),25,10);
                 nombre.remove(i);
                 break;
 
@@ -195,16 +195,16 @@ public class Cubo {
         }
 
     }
-	public void CuboDestruido (double x,double y,Entorno e) {
-		Cubo Ladrillo1;
-		Cubo Ladrillo2;
-		Ladrillo1 = new Cubo(x,y,25,10, true, true);
-		Ladrillo2 = new Cubo(x,y,25,10, true, true);
+	//public void CuboDestruido (double x,double y,Entorno e) {
+		//Cubo Ladrillo1;
+		//Cubo Ladrillo2;
+		//Ladrillo1 = new Cubo(x,y,25,10, true, true);
+		//Ladrillo2 = new Cubo(x,y,25,10, true, true);
 		
-		Ladrillo1.DibujarLadrillo(e, x+30, y+50, 25,10);
-		Ladrillo2.DibujarLadrillo(e, x+30, y+45, 25,10);
+		//Ladrillo1.DibujarLadrillo(e, x+30, y+50, 25,10);
+		//Ladrillo2.DibujarLadrillo(e, x+30, y+45, 25,10);
 		
-	}
+	//}
 	public boolean cuboVacio(List<Cubo> nombre) {
 		for (int i=0; i<nombre.size();i++) {
 			if (nombre.get(i)==null) {

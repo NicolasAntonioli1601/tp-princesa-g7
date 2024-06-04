@@ -27,8 +27,8 @@ public class Princesa {
 
 	public Princesa(int posicionX, int posicionY, double ancho, double altura) {
 		this.setCoordenadas(new Coordenada(posicionX, posicionY));
-		this.img1 = Herramientas.cargarImagen("recursos/princesa-frent.png");
-		this.angulo = 0;
+		this.img1 = Herramientas.cargarImagen("recursos/princesa-frente.png");
+		//this.angulo = 0;
 		this.altura= 50;
 		this.ancho = 50;
 	}
