@@ -1,8 +1,12 @@
 package juego;
 
-
 import java.awt.Color;
 import java.awt.Image;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> main
 import java.util.Random;
 
 import entorno.Entorno;
@@ -12,38 +16,38 @@ import entorno.InterfaceJuego;
 public class Juego extends InterfaceJuego {
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
+<<<<<<< HEAD
 	private Puntaje puntos;
 	// Variables y métodos propios de cada grupo
 	// ...
+=======
+	// Variables y métodos propios de cada grupo
+	// ...
+	private Cuadrado cuadrado;
+>>>>>>> main
 	private Cubo cubo;
 	Random random = new Random();
 	private Fondo fondo;
 	private Princesa princesa;
-	private Fila[] filas;
+	private Coordenada coordenadas;
 	
 	double[] Fila3Fijo = new double[16];double[] Fila2Fijo = new double[16];double[] Fila1Fijo = new double[16];
 	double[] Fila3Random = new double[16];double[] Fila2Random = new double[16];double[] Fila1Random = new double[16];
 	Juego() {
+
 		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
 		this.fondo = new Fondo(400, 300, "fondo.png");
-		
-		this.filas = new Fila[3];
-		int alturaPiso = 450;
-		for(int x = 0; x<3; x++) {
-			this.filas[x] = new Fila(new Coordenada(0, alturaPiso), 16);
-			alturaPiso -= 150;
-		}
-		
+
+		cuadrado = new Cuadrado(300, 550, 50, 50);
 		cubo = new Cubo(300, 550, 50, 50, true, true);
 		cubo.ListaAgregar(Fila1Fijo,Fila1Random);
 		cubo.ListaAgregar(Fila2Fijo,Fila2Random);
 		cubo.ListaAgregar(Fila3Fijo,Fila3Random);
+		System.out.println(Fila1Random.length);
 
-		this.princesa = new Princesa(400, 540);
-		cubo.Colision(princesa,Fila1Fijo ,Fila1Random, 0 );
+		this.princesa = new Princesa(400, 540, 50, 50);
+		//cubo.Colision(princesa,Fila1Fijo ,Fila1Random );
 		
-		this.puntos = new Puntaje();
-		this.fondo = new Fondo(400, 300, "fondo.png");
 		
 		this.entorno.iniciar();
 	}
@@ -67,19 +71,38 @@ public class Juego extends InterfaceJuego {
 		// GRAVEDAD, si no esta en el margen de abajo (aprox 550) tiene que decrementar
 		// si o si para abajo el y.
 		// (agregar condicion cuando haya bloques)
+
 		
+
 		
-		Fila.dibujarFilas(this.filas, entorno);
+		cubo.DibujarCubos(entorno, Fila1Fijo, Fila1Random, 450);
+		cubo.DibujarCubos(entorno, Fila2Fijo, Fila2Random, 300);
+		cubo.DibujarCubos(entorno, Fila3Fijo, Fila3Random, 150);
 		
 		if (this.princesa != null) {
-			this.princesa.setEntorno(entorno);
-			
-			/*if (this.princesa.getCoordenadas().getY() <= posicionYPisoActual)   {		//550
+			if (this.princesa.getCoordenadas().getY() <= 540  )   {		//550
 				this.princesa.getCoordenadas().moverYCantidad(false, 5);
-			}*/
+			} 
+//			if (this.princesa.getCoordenadas().getY() <= 425 )   {
+//				this.princesa.getCoordenadas().setY(400);
+//				
+//			}
+			this.princesa.setEntorno(entorno);
 
-			
-/*
+			princesa.dibujarse(entorno);
+			if(this.entorno.estaPresionada('c') && this.princesa.tiro == null) {
+				this.princesa.dispara();
+				this.princesa.tiro.dibujarse(entorno);
+			}
+			if(this.princesa.tiro != null) {
+				if(this.princesa.tiro.estaEnLimite()) {
+					this.princesa.tiro.dibujarse(entorno);
+					this.princesa.tiro.moverse();
+				}
+				else {
+					this.princesa.tiro = null;
+				}
+			}
 			if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA)
 					|| this.entorno.estaPresionada(this.entorno.TECLA_DERECHA) || this.entorno.estaPresionada('x')) {
 				this.princesa.moverDerecha();
@@ -88,31 +111,11 @@ public class Juego extends InterfaceJuego {
 			} else {
 				this.princesa.img1 = Herramientas.cargarImagen("recursos/princesa-frente.png");
 			}
-*/		
-			if(this.entorno.sePresiono('x')) {
-				this.princesa.saltar(entorno);
-			}else if(this.entorno.estaPresionada(this.entorno.TECLA_DERECHA)) {
-				this.princesa.moverDerecha();
-			}else if(this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA)) {
-				this.princesa.moverIzquierda();
-			}else {
-				this.princesa.enIdle(entorno);
-			}
-			princesa.dibujarse(entorno);
+
 		}
-		
-		for(Fila fila : this.filas) {
-			for(Cubo cubo : fila.getCubos()) {
-				if(cubo.colisionaConPrincesa(princesa) && this.princesa.getCoordenadas().getY() < cubo.getY()) {
-					if(cubo.isTipo()) {
-						cubo = null;
-					}
-					else {
-						princesa.setCoordenadas(new Coordenada(princesa.getX(), princesa.getY()-20));
-					}
-				}
-			}
-		}
+		cubo.Colision(princesa,Fila1Fijo ,Fila1Random,450 );
+		cubo.Colision(princesa,Fila2Fijo ,Fila2Random,300 );
+		cubo.Colision(princesa,Fila3Fijo ,Fila3Random,150 );
 	}
 
 	@SuppressWarnings("unused")

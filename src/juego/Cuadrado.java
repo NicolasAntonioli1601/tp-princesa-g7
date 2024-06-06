@@ -6,47 +6,152 @@ import entorno.Entorno;
 import entorno.Herramientas;
 
 public class Cuadrado {
-	double ancho;
-	double altura;
-	double x;
-	double y;
-	private Entorno entorno;
-	double velocidad;
-	String direccion;
+	private double x;
+	private double y;
+	private int altura;
+	private int ancho;
+	private int desplazamiento = 5;
 	Image img1;
 
-	public Cuadrado(Entorno entorno, int x, int y, String direccion) {
+	public Cuadrado(double x, double y, int altura, int ancho) {
 		super();
-		this.ancho = 100;
-		this.altura = 100;
 		this.x = x;
 		this.y = y;
-		this.velocidad = 15;
-		this.entorno = entorno;
-		this.direccion = direccion;
-		this.img1 = Herramientas.cargarImagen("personaje-nice.png");
+		this.altura = altura;
+		this.ancho = ancho;
 	}
 
-	public void Dibujar(Entorno entorno) {
-		entorno.dibujarRectangulo(x, y, ancho, altura, 0, Color.pink);
-		entorno.dibujarImagen(img1, this.x, this.y, 0, 0.1);
+	public double getX() {
+		return x;
 	}
 
-	public void avanzarArriba() {
-		this.y-=this.velocidad;
-		
+	public void setX(double x) {
+		this.x = x;
 	}
 
-	public void avanzarAbajo() {
-		this.y+= this.velocidad;
+	public double getY() {
+		return y;
 	}
 
-	public void avanzarDerecha() {
-		this.x = x + this.velocidad;
+	public void setY(double y) {
+		this.y = y;
 	}
 
-	public void avanzarIzquierda() {
-		this.x = x - this.velocidad;
+	public int getAltura() {
+		return altura;
+	}
+
+	public void setAltura(int altura) {
+		this.altura = altura;
+	}
+
+	public int getAncho() {
+		return ancho;
+	}
+
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
+
+	public int getDesplazamiento() {
+		return desplazamiento;
+	}
+
+	public void setDesplazamiento(int desplazamiento) {
+		this.desplazamiento = desplazamiento;
+	}
+
+	public void Dibujar(Entorno e) {
+		e.dibujarRectangulo(x, y, ancho, altura, 0, Color.ORANGE);
+	}
+
+	public void DibujarPiso(Entorno e) {
+		e.dibujarRectangulo(x, y, ancho, altura, 0, Color.RED);
+	}
+
+	public void DibujarColumna(Entorno e) {
+		img1 = Herramientas.cargarImagen("cuadrado.png");
+		e.dibujarImagen(img1, this.x, this.y, 0, 0.1);
+	}
+
+	public void MoverIzq() {
+		x -= desplazamiento;
+	}
+
+	public void MoverDer() {
+		x += desplazamiento;
+	}
+
+	public void Saltar() {
+		y -= 10;
+	}
+
+	public void Caer() {
+		if (y > 550) {
+			y += 4;
+		} else {
+			y = 550;
+		}
+
+	}
+
+	public void DibujarColumna0 (Entorno e) {
+		int PosY = 1;
+		int CantCuadrados= 17;
+		Cuadrado cuadrado;
+		while (CantCuadrados != 0) {
+			cuadrado = new Cuadrado(PosY, 600, 50, 50);
+			cuadrado.DibujarPiso(e);
+			CantCuadrados--;
+			PosY = PosY + 50;
+			
+				
+			}
+	}
+
+	public void DibujarColumna1 (Entorno e) {
+			int PosY = 25;
+			int CantCuadrados= 16;
+			Cuadrado cuadrado;
+			while (CantCuadrados != 0) {
+				cuadrado = new Cuadrado(PosY, 450, 50, 50);
+				cuadrado.DibujarColumna(e);
+				CantCuadrados--;
+				PosY = PosY + 50;
+					
+				}
+				
+		}
+
+	public void DibujarColumna2 (Entorno e) {
+				int PosY = 25;
+				int CantCuadrados= 16;
+				Cuadrado cuadrado;
+				while (CantCuadrados != 0) {
+					cuadrado = new Cuadrado(PosY,300, 50, 50);
+					cuadrado.DibujarColumna(e);
+					CantCuadrados--;
+					PosY = PosY + 50;
+						
+					}
+						
+					
+					
+			}
+
+	public void DibujarColumna3(Entorno e) {
+		int PosY = 25;
+		int CantCuadrados = 16;
+		 
+		Cuadrado cuadrado;
+		while (CantCuadrados != 0) {
+			cuadrado = new Cuadrado(PosY, 150, 50, 50);
+			cuadrado.DibujarColumna(e);
+			
+			CantCuadrados--;
+			PosY = PosY + 50;
+
+		}
 	}
 
 }
