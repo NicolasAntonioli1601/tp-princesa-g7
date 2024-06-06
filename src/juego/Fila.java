@@ -16,7 +16,7 @@ public class Fila {
 		boolean esDestructible = false;
 		boolean hayDestructible = false;
 		Random randomizer = new Random();
-		int posicionCuboAnterior = 0;
+		int posicionCuboAnterior = -25;
 		
 		for(int x = 0; x < cantidadCubos; x++) {
 			if(randomizer.nextInt(100) % 6 == 0) { 
@@ -29,8 +29,6 @@ public class Fila {
 			else {
 				this.cubos[x] = new Cubo(posicionCuboAnterior+50, this.coordenadas.getY(),50 , 50, false,esDestructible);
 			}
-			
-			System.out.println("Aumentando posicion del cubo: "+posicionCuboAnterior);
 			posicionCuboAnterior += 50;
 			esDestructible = false;
 			
@@ -52,13 +50,18 @@ public class Fila {
 	public void setCoordenadas(Coordenada coordenadas) {
 		this.coordenadas = coordenadas;
 	}
-	/*
-	public void dibujarFilas(Entorno entorno) {
-		for(int x = 0; x < cubos.length; x++) {
-			//System.out.println("dibujando cubo en posiciones x: " + cubo.getX() + ", y: "+cubo.getY());
-			cubos[x].dibujarCubo(entorno);
+	
+	public void dibujarFila(Entorno entorno) {
+		for(Cubo cubo : this.getCubos()) {
+			cubo.dibujarCubo(entorno);
 		}
-	}*/
+	}
+	
+	public static void dibujarFilas(Fila[] filas, Entorno entorno) {
+		for(Fila fila : filas) {
+			fila.dibujarFila(entorno);
+		}
+	}
 	
 	
 }

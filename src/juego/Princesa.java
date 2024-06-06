@@ -15,7 +15,15 @@ public class Princesa {
 	boolean posicionDerecha;
 	Image img1;
 	Tiro tiro;
-	
+	private int piso;
+
+	public int getPiso() {
+		return piso;
+	}
+
+	public void setPiso(int piso) {
+		this.piso = piso;
+	}
 
 	public Entorno getEntorno() {
 		return entorno;
@@ -23,6 +31,22 @@ public class Princesa {
 
 	public void setEntorno(Entorno entorno) {
 		this.entorno = entorno;
+	}
+	
+	public Coordenada getCoordenadas() {
+		return coordenadas;
+	}
+
+	public void setCoordenadas(Coordenada coordenadas) {
+		this.coordenadas = coordenadas;
+	}
+	
+	public int getX() {
+		return this.coordenadas.getX();
+	}
+	
+	public int getY() {
+		return this.coordenadas.getY();
 	}
 
 	public Princesa(int posicionX, int posicionY, double ancho, double altura) {
@@ -71,13 +95,7 @@ public class Princesa {
 		
 	}
 
-	public Coordenada getCoordenadas() {
-		return coordenadas;
-	}
-
-	public void setCoordenadas(Coordenada coordenadas) {
-		this.coordenadas = coordenadas;
-	}
+	
 	public void Dibujarcuadrado(Entorno e) {
 		e.dibujarRectangulo(coordenadas.getX(), coordenadas.getY(), ancho, altura, 0, Color.RED);
 	
