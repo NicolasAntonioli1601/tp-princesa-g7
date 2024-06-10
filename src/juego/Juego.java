@@ -60,8 +60,8 @@ public class Juego extends InterfaceJuego {
 		// (agregar condicion cuando haya bloques)
 		
 		if (this.princesa != null) {
-			if (this.princesa.getCoordenadas().getY() <= this.princesa.getPiso()  )   {		//550
-				this.princesa.getCoordenadas().moverYCantidad(false, 1);
+			if (this.princesa.getCoordenadas().getY() < this.princesa.getPiso())   {		//550
+				this.princesa.getCoordenadas().moverYCantidad(false, 10);
 			}
 			
 			this.princesa.setEntorno(entorno);
@@ -96,7 +96,16 @@ public class Juego extends InterfaceJuego {
 		
 		for(Fila fila : this.filas) {
 			for(Cubo cubo : fila.getCubos()) {
-				if(cubo.colisionaConPrincesa(princesa) && this.princesa.getCoordenadas().getY() < cubo.getY()) {
+				if (this.princesa.getY() > cubo.getY() + 25){
+					if(!cubo.isRompible()) {
+						princesa.setPiso((int) cubo.getY());
+					}
+					else {
+						princesa.setPiso((int) cubo.getY()-150);
+					}
+				}
+				
+				if(cubo.colisionaConPrincesa(princesa)) {
 					if(cubo.isRompible()) {
 						cubo.setEstado(false);
 					}
