@@ -62,8 +62,10 @@ public class Juego extends InterfaceJuego {
 		
 		if (this.princesa != null) {
 			System.out.println(this.princesa.getPiso());
-			if (this.princesa.getCoordenadas().getY() > this.princesa.getPiso() && this.princesa.getY() > 540)   {		//550
-				this.princesa.getCoordenadas().moverYCantidad(false, 10);
+			if (this.princesa.getCoordenadas().getY() > this.princesa.getPiso())   {		//550
+				if(!(this.princesa.getY() > posicionYPiso)) {
+					this.princesa.getCoordenadas().moverYCantidad(false, 10);
+				}
 			}
 			
 			princesa.dibujarse(entorno);
@@ -111,7 +113,7 @@ public class Juego extends InterfaceJuego {
 						cubo.setEstado(false);
 					}
 					else {
-						this.princesa.getCoordenadas().moverYCantidad(false, 10);
+						this.princesa.getCoordenadas().moverYCantidad(false, 5);
 						this.princesa.setPiso(fila.getCoordenadas().getY() - 150);
 					}
 				}
