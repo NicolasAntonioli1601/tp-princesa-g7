@@ -30,6 +30,8 @@ public class Tiranosaurio {
     private Image imgIzqDisparo;
     private Image imgDerDisparo;
     
+    private Tiro tiro;
+    
 	
 	//constructor Tiranosaurio
     public Tiranosaurio(int x, int y, double alto, double ancho, Entorno entorno) {
@@ -88,8 +90,11 @@ public class Tiranosaurio {
     
     
     public void disparar() {
-    	
-    	
+    	boolean direccionTiro = true;
+    	if(this.direccion == "Derecha") {
+    		direccionTiro = false;
+    	}
+    	this.tiro = new Tiro(this.getCoordenada().getX(), this.getCoordenada().getY(), direccionTiro);
     }
     
     
@@ -109,7 +114,12 @@ public class Tiranosaurio {
 		this.entorno = entorno;
 	}
 	
-
-	
-
+	public void tocaPared() {
+		if(this.direccion == "Derecha") {
+			this.direccion = "Izquierda";
+		}
+		else {
+			this.direccion = "Derecha";
+		}
+	}
 }

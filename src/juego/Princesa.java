@@ -10,9 +10,8 @@ public class Princesa {
 	private Coordenada coordenadas;
 	double ancho;
 	double altura;
-	private Entorno entorno;
 	boolean posicionDerecha;
-	Image img1;
+	Image imagenEstado;
 	Tiro tiro;
 	private int piso;
 
@@ -22,14 +21,6 @@ public class Princesa {
 
 	public void setPiso(int piso) {
 		this.piso = piso;
-	}
-
-	public Entorno getEntorno() {
-		return entorno;
-	}
-
-	public void setEntorno(Entorno entorno) {
-		this.entorno = entorno;
 	}
 	
 	public Coordenada getCoordenadas() {
@@ -50,55 +41,42 @@ public class Princesa {
 
 	public Princesa(int posicionX, int posicionY, double ancho, double altura) {
 		this.setCoordenadas(new Coordenada(posicionX, posicionY));
-		this.img1 = Herramientas.cargarImagen("recursos/princesa-frente.png");
+		this.imagenEstado = Herramientas.cargarImagen("recursos/princesa-frente.png");
 		//this.angulo = 0;
 		this.altura= 50;
 		this.ancho = 50;
+		this.piso = posicionY;
 	}
 
 	public void dibujarse(Entorno entorno) {
-		entorno.dibujarImagen(img1, this.getCoordenadas().getX(), this.getCoordenadas().getY(), 0, 0.4);
+		entorno.dibujarImagen(imagenEstado, this.getCoordenadas().getX(), this.getCoordenadas().getY(), 0, 0.4);
 	}
 
 	public void moverDerecha() {
-		if (this.entorno.estaPresionada(this.entorno.TECLA_DERECHA) && this.getCoordenadas().getX() <= 750) {
-			this.getCoordenadas().moverXCantidad(true, 3);
-			this.img1 = Herramientas.cargarImagen("recursos/princesa-der.png");
-			this.posicionDerecha=true;
-		}
+		this.getCoordenadas().moverXCantidad(true, 3);
+		this.imagenEstado = Herramientas.cargarImagen("recursos/princesa-der.png");
+		this.posicionDerecha=true;
 	}
 
 	public void moverIzquierda() {
-		if (this.entorno.estaPresionada(this.entorno.TECLA_IZQUIERDA) && this.getCoordenadas().getX() >= 50) {
-			this.getCoordenadas().moverXCantidad(false, 3);
-			this.img1 = Herramientas.cargarImagen("recursos/princesa-izq.png");
-			this.posicionDerecha=false;
-		}
-		
-		
+		this.getCoordenadas().moverXCantidad(false, 3);
+		this.imagenEstado = Herramientas.cargarImagen("recursos/princesa-izq.png");
+		this.posicionDerecha=false;
 	}
 
 	public void saltar() {
-		char a = 'x';
-		if (this.entorno.estaPresionada(a) && this.getCoordenadas().getY() >= 50) {
-			this.img1 = Herramientas.cargarImagen("recursos/princesa-salto.png");
-			this.getCoordenadas().moverYCantidad(true, 20);
-
-		}
+		this.imagenEstado = Herramientas.cargarImagen("recursos/princesa-salto.png");
+		this.getCoordenadas().moverYCantidad(true, 20);
 	}
 
 
 	public void dispara() {
-
 		this.tiro = new Tiro(this.coordenadas.getX() - 20, this.coordenadas.getY(), this.posicionDerecha);
-		
 	}
 
 	
 	public void Dibujarcuadrado(Entorno e) {
 		e.dibujarRectangulo(coordenadas.getX(), coordenadas.getY(), ancho, altura, 0, Color.RED);
-	
-	
 	}
 	
 	public boolean EstaColision(double x1, double y1, double x2, double y2, double dist) {

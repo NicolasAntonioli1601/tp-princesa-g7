@@ -21,6 +21,7 @@ public class Juego extends InterfaceJuego {
 	private Princesa princesa;
 	
 	private Fila[] filas;
+	private Tiranosaurio[] dinos;
 	Juego() {
 
 		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
@@ -33,7 +34,7 @@ public class Juego extends InterfaceJuego {
 			alturaPiso -= 150;
 		}
 		
-		this.princesa = new Princesa(400, 540, 50, 50);
+		this.princesa = new Princesa(400, 500, 50, 50);
 		//cubo.Colision(princesa,Fila1Fijo ,Fila1Random );
 		
 		
@@ -60,11 +61,11 @@ public class Juego extends InterfaceJuego {
 		// (agregar condicion cuando haya bloques)
 		
 		if (this.princesa != null) {
-			if (this.princesa.getCoordenadas().getY() < this.princesa.getPiso())   {		//550
+			System.out.println(this.princesa.getPiso());
+			if (this.princesa.getCoordenadas().getY() > this.princesa.getPiso() && this.princesa.getY() > 540)   {		//550
 				this.princesa.getCoordenadas().moverYCantidad(false, 10);
 			}
 			
-			this.princesa.setEntorno(entorno);
 			princesa.dibujarse(entorno);
 			
 			
@@ -110,7 +111,8 @@ public class Juego extends InterfaceJuego {
 						cubo.setEstado(false);
 					}
 					else {
-						princesa.setCoordenadas(new Coordenada(princesa.getX(), princesa.getY()-20));
+						this.princesa.getCoordenadas().moverYCantidad(false, 10);
+						this.princesa.setPiso(fila.getCoordenadas().getY() - 150);
 					}
 				}
 			}

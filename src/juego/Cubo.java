@@ -195,7 +195,12 @@ public class Cubo {
 	}
 	
 	public boolean colisionaConPrincesa(Princesa princesa) {
-		return colision1(this.x, this.y, princesa.getX(), princesa.getY(), 25);
+		if(this.isRompible()) {
+			return colision1(this.x, this.y, princesa.getX(), princesa.getY(), 25);
+		}
+		else {
+			return colision1(this.x, this.y, princesa.getX(), princesa.getY(), 50);
+		}
 	}
 	
 	//public void CuboDestruido (double x,double y,Entorno e) {
