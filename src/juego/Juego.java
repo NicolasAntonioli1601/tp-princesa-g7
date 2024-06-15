@@ -199,12 +199,12 @@ public class Juego extends InterfaceJuego {
 		
 		for(Fila fila : this.filas) {
 			for(Cubo cubo : fila.getCubos()) {
-				if (this.princesa.getY() > cubo.getY() + 25){
+				if (this.princesa.getY() < cubo.getY()){
 					if(!cubo.isRompible()) {
-						princesa.setPiso((int) cubo.getY());
+						princesa.setPiso((int) cubo.getY() - 150);
 					}
 					else {
-						princesa.setPiso((int) cubo.getY()-150);
+						princesa.setPiso((int) cubo.getY());
 					}
 				}
 				
