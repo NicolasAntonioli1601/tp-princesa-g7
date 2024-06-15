@@ -115,7 +115,7 @@ public class Juego extends InterfaceJuego {
 	
 		
 			
-		System.out.println(tiro[0].getX());
+		//System.out.println(tiro[0].getX());
 		
 		tiro[0].dibujarse(entorno);
 		tiro[0].moverse();

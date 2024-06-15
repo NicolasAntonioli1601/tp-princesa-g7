@@ -19,7 +19,7 @@ public class Fila {
 		int posicionCuboAnterior = -25;
 		
 		for(int x = 0; x < cantidadCubos; x++) {
-			if(randomizer.nextInt(100) % 6 == 0) { 
+			if(randomizer.nextInt(100) % 3 == 0) { 
 				esDestructible = true;
 				hayDestructible = true;
 			}
