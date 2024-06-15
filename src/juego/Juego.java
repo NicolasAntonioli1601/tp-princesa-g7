@@ -197,24 +197,56 @@ public class Juego extends InterfaceJuego {
 
 		}
 		
-		for(Fila fila : this.filas) {
-			for(Cubo cubo : fila.getCubos()) {
-				if (this.princesa.getY() < cubo.getY()){
-					if(!cubo.isRompible()) {
-						princesa.setPiso((int) cubo.getY() - 150);
+		for(int x = 0; x < filas.length; x++) {
+			if(
+				x < 3
+				&&
+				this.princesa.getY() < filas[x].getCoordenadas().getY()
+				&&
+				this.princesa.getY() > filas[x+1].getCoordenadas().getY()
+			) {
+				for(Cubo cubo : filas[x].getCubos()) {
+					if(this.princesa.getX() < cubo.getX() - 20 && this.princesa.getX() > cubo.getX() + 20) {
+						//if (this.princesa.getY() < cubo.getY()){
+							if(!cubo.isRompible()) {
+								princesa.setPiso((int) cubo.getY() + 150);
+							}
+							else {
+								princesa.setPiso((int) cubo.getY());
+							}
+						//}
 					}
-					else {
-						princesa.setPiso((int) cubo.getY());
+					
+					if(cubo.colisionaConPrincesa(princesa)) {
+						if(cubo.isRompible()) {
+							cubo.setEstado(false);
+						}
+						else {
+							this.princesa.getCoordenadas().moverYCantidad(false, 5);
+							this.princesa.setPiso(filas[x].getCoordenadas().getY() - 150);
+						}
 					}
 				}
-				
-				if(cubo.colisionaConPrincesa(princesa)) {
-					if(cubo.isRompible()) {
-						cubo.setEstado(false);
+			}
+			if(this.princesa.getY() < filas[x].getCoordenadas().getY()) {
+				for(Cubo cubo : filas[x].getCubos()) {
+					if (this.princesa.getY() < cubo.getY()){
+						if(!cubo.isRompible()) {
+							princesa.setPiso((int) cubo.getY() + 150);
+						}
+						else {
+							princesa.setPiso((int) cubo.getY());
+						}
 					}
-					else {
-						this.princesa.getCoordenadas().moverYCantidad(false, 5);
-						this.princesa.setPiso(fila.getCoordenadas().getY() - 150);
+					
+					if(cubo.colisionaConPrincesa(princesa)) {
+						if(cubo.isRompible()) {
+							cubo.setEstado(false);
+						}
+						else {
+							this.princesa.getCoordenadas().moverYCantidad(false, 5);
+							this.princesa.setPiso(filas[x].getCoordenadas().getY() - 150);
+						}
 					}
 				}
 			}
