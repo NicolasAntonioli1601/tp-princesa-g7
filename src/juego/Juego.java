@@ -87,7 +87,7 @@ public class Juego extends InterfaceJuego {
 			
 		
 		
-		this.princesa = new Princesa(400, 500, 50, 50);
+		this.princesa = new Princesa(400, 550, 50, 50);
 		//cubo.Colision(princesa,Fila1Fijo ,Fila1Random );
 		
 		
@@ -161,9 +161,9 @@ public class Juego extends InterfaceJuego {
 		
 		
 		if (this.princesa != null) {
-			//System.out.println(this.princesa.getPiso());
+			System.out.println(this.princesa.getPiso());
 			if (this.princesa.getCoordenadas().getY() > this.princesa.getPiso())   {		//550
-				if(!(this.princesa.getY() > posicionYPiso)) {
+				if(this.princesa.getY() < posicionYPiso) {
 					this.princesa.getCoordenadas().moverYCantidad(false, 10);
 				}
 			}
@@ -199,12 +199,14 @@ public class Juego extends InterfaceJuego {
 		
 		for(Fila fila : this.filas) {
 			for(Cubo cubo : fila.getCubos()) {
-				if (this.princesa.getY() < cubo.getY()){
-					if(!cubo.isRompible()) {
-						princesa.setPiso((int) cubo.getY() - 150);
-					}
-					else {
-						princesa.setPiso((int) cubo.getY());
+				if(this.princesa.getX()-20 > cubo.getX() && this.princesa.getX()+20 < cubo.getX()) {
+					if (this.princesa.getY() < cubo.getY()){
+						if(!cubo.isRompible()) {
+							princesa.setPiso((int) cubo.getY() - 150);
+						}
+						else {
+							princesa.setPiso((int) cubo.getY());
+						}
 					}
 				}
 				
@@ -214,7 +216,6 @@ public class Juego extends InterfaceJuego {
 					}
 					else {
 						this.princesa.getCoordenadas().moverYCantidad(false, 5);
-						this.princesa.setPiso(fila.getCoordenadas().getY() - 150);
 					}
 				}
 			}

@@ -8,8 +8,22 @@ import entorno.Herramientas;
 
 public class Princesa {
 	private Coordenada coordenadas;
+	
 	double ancho;
 	double altura;
+	
+	private Entorno entorno;
+	
+	private double gravedad;
+	
+	private double salto;
+	
+	private double velocidadDeSalto;
+	
+	private double posicionDelSuelo;
+	
+	private String direccion;
+	
 	boolean posicionDerecha;
 	Image imagenEstado;
 	Tiro tiro;
