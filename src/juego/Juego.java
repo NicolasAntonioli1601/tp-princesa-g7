@@ -19,9 +19,10 @@ public class Juego extends InterfaceJuego {
 	Random random = new Random();
 	private Fondo fondo;
 	private Princesa princesa;
-	
+	private TiroDino Tiro;
 	private Fila[] filas;
 	private Tiranosaurio[] dinos;
+	private TiroDino [] tiro;
 	Juego() {
 
 		this.entorno = new Entorno(this, "TpPrincesa", 800, 600);
@@ -31,13 +32,51 @@ public class Juego extends InterfaceJuego {
 		int alturaPiso = 450;
 		for(int x = 0; x<3; x++) {
 			this.filas[x] = new Fila(new Coordenada(0, alturaPiso), 16);
+
 			alturaPiso -= 150;
 		}
+		
+		
+		this.dinos = new Tiranosaurio [6];
+		this.tiro = new TiroDino [6];
+		
+			for (int dino = 0; dino <dinos.length; dino++) {
+				for (int tiros = 0; dino <tiro.length; dino++) {
+					
+					
+				
+				
+			if(dino == 0 && tiros==0) 
+				this.dinos[dino] = new Tiranosaurio(500, 90, 50, 50,false);
+				tiro[tiros] = new TiroDino (500, 90, false);
+			if(dino == 1)
+				this.dinos[dino] = new Tiranosaurio(200, 90, 50, 50,true);
+				tiro[tiros]= new TiroDino (500, 90, true);
+			if(dino == 2)
+				this.dinos[dino] = new Tiranosaurio(500, 240, 50, 50,false);
+				//tiro[tiros]= new TiroDino (500, 240, false);
+			if(dino == 3)
+				this.dinos[dino] = new Tiranosaurio(200, 240, 50, 50,true);
+				//tiro[tiros]= new TiroDino (200, 240, true);
+			if(dino == 4)
+				this.dinos[dino] = new Tiranosaurio(530, 390, 50, 50,false);
+				//tiro[tiros]	= new TiroDino (530, 390, false);
+			if(dino == 5)
+				this.dinos[dino] = new Tiranosaurio(200 , 390, 50, 50,true);
+				//tiro[tiros]= new TiroDino (200 , 390, true);
+			
+				
+			}
+			}
+			
+		
 		
 		this.princesa = new Princesa(400, 500, 50, 50);
 		//cubo.Colision(princesa,Fila1Fijo ,Fila1Random );
 		
 		
+		
+	
 		this.entorno.iniciar();
 	}
 
@@ -50,18 +89,48 @@ public class Juego extends InterfaceJuego {
 	public void tick() {
 		// Procesamiento de un instante de tiempo
 		// ...
+		
 		double posicionYPiso = 540;
 		double posicionYPisoActual = posicionYPiso;
 		
 		entorno.cambiarFont(null, 20, new Color(255, 255, 255));
 		fondo.dibujarse(entorno);
 		Fila.dibujarFilas(this.filas, entorno);
+	
+		
+			
+		System.out.println(tiro[0].getX());
+		
+		tiro[0].dibujarse(entorno);
+		tiro[0].moverse();
+		
+//		tiro[1].dibujarse(entorno);
+//		tiro[1].moverse();
+		Tiranosaurio.mover(dinos, 0, entorno, Tiro);
+		
+		
+		
+//		
+//		Tiranosaurio.mover(dinos, 1, entorno, Tiro);
+//		Tiranosaurio.mover(dinos, 2, entorno, Tiro);
+//		Tiranosaurio.mover(dinos, 3, entorno, Tiro);
+//		Tiranosaurio.mover(dinos, 4, entorno, Tiro);
+//		Tiranosaurio.mover(dinos, 5, entorno, Tiro);
+//	
+
+		
+		
+		//Tiranosaurio.movimientosDer(dinos, entorno,2);
+		
 		// GRAVEDAD, si no esta en el margen de abajo (aprox 550) tiene que decrementar
 		// si o si para abajo el y.
 		// (agregar condicion cuando haya bloques)
+		//tiranos.DibujarTirano(entorno);
+		//tiranos.dibujarTiranosaurio(tiranos, entorno);
+		
 		
 		if (this.princesa != null) {
-			System.out.println(this.princesa.getPiso());
+			//System.out.println(this.princesa.getPiso());
 			if (this.princesa.getCoordenadas().getY() > this.princesa.getPiso())   {		//550
 				if(!(this.princesa.getY() > posicionYPiso)) {
 					this.princesa.getCoordenadas().moverYCantidad(false, 10);
@@ -83,7 +152,7 @@ public class Juego extends InterfaceJuego {
 			
 			if(this.entorno.estaPresionada('c') && this.princesa.tiro == null) {
 				this.princesa.dispara();
-				this.princesa.tiro.dibujarse(entorno);
+				//this.princesa.tiro.dibujarse(entorno);
 			}
 			if(this.princesa.tiro != null) {
 				if(this.princesa.tiro.estaEnLimite()) {

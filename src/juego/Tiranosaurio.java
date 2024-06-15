@@ -1,125 +1,113 @@
 package juego;
 
 import java.awt.Image;
-import java.awt.Color;
+
 import entorno.Entorno;
 import entorno.Herramientas;
 
-
 public class Tiranosaurio {
-	
-	private Coordenada coordenadas;
-	private int x;
-	private int y;
-	private double alto;
+	private double x;
+	private double y;
+	private double altura;
 	private double ancho;
-	
-	private double gravedad;
-	private double piso;
-	
-	private Entorno entorno;
-	
-	private String direccion;
-	private String estado;
-	private int contadorSprite;
-	
-    private Image imgIzq;
-    private Image imgDer;
-    private Image imgIzqMov;
-    private Image imgDerMov;
-    private Image imgIzqDisparo;
-    private Image imgDerDisparo;
-    
-    private Tiro tiro;
-    
-	
-	//constructor Tiranosaurio
-    public Tiranosaurio(int x, int y, double alto, double ancho, Entorno entorno) {
-    	this.coordenadas = new Coordenada(x, y);
-    	this.alto = alto;
-    	this.ancho = ancho;
-    	this.entorno = entorno;
-    	
-    	this.gravedad = 0.5;
-    	this.piso = this.y + this.alto/2;
-    	
-    	this.direccion = "Derecha";
-    	this.direccion = "Izquierda";
-    	this.estado = "Moviendose";
-    	this.contadorSprite = 0;
-    	
-    }
-    
-    
-    //Movimientos
-    public void moverDerecha() {
-    	while(this.getCoordenada().getX() < 400) {
-    		this.getCoordenada().moverXCantidad(true,5 );
-    	}
-    	
-   
-     }
-    
-    public void moverIzquierda() {
-    	while(this.getCoordenada().getY() > 0) {
-    		this.getCoordenada().moverXCantidad(true,5 );
-    	}
-     }
-    
-    
-    public void estatico() {
-    	this.estado = "Quieto";
-    }
-    
-    
-    
-    public void cargarImagen() {
-    	
-    	this.imgIzq = Herramientas.cargarImagen("DinoIzq.png");
-    	this.imgDer = Herramientas.cargarImagen("DinoIzq.png");
-    	this.imgIzqMov = Herramientas.cargarImagen("DinoIzq.png");
-    	this.imgDerMov = Herramientas.cargarImagen("DinoIzq.png");
-    	this.imgIzqDisparo = Herramientas.cargarImagen("DinoIzq.png");
-    	this.imgDerDisparo = Herramientas.cargarImagen("DinoIzq.png");
-    }
-    
-    public void dibujarT(Entorno entorno, Image img, double x, double y) {
-    	
-    	entorno.dibujarImagen(img, this.getCoordenada().getX(), this.getCoordenada().getY(), 0);
-    }
-    
-    
-    public void disparar() {
-    	boolean direccionTiro = true;
-    	if(this.direccion == "Derecha") {
-    		direccionTiro = false;
-    	}
-    	this.tiro = new Tiro(this.getCoordenada().getX(), this.getCoordenada().getY(), direccionTiro);
-    }
-    
-    
-    public Coordenada setCoordenada(Coordenada coordenadas) {
-    	return this.coordenadas;
-    }
-    
-    public Coordenada getCoordenada() {
-    	return coordenadas;
-    }
-    
-	public Entorno getEntorno() {
-		return entorno;
+	private Image imagenEstado;
+	private boolean sentido;
+	TiroDino a;
+	// CONTRUCTOR
+	public Tiranosaurio(double posicionX, double posicionY, double altura, double ancho,boolean sentido) {
+		this.x = posicionX;
+		this.y = posicionY;
+		this.altura = altura;
+		this.ancho = ancho;
+		this.sentido = sentido;
 	}
 	
-	public void setEntorno(Entorno entorno) {
-		this.entorno = entorno;
+	
+	
+	//DIBUJADO DE TIRANOS
+	public void DibujarTiranocentro(Entorno e) {
+		imagenEstado = Herramientas.cargarImagen("recursos/koupa2.png");
+		e.dibujarImagen(imagenEstado, this.x, this.y, 0, 0.6);
+
+	}
+	public void DibujarTiranoIzq(Entorno e) {
+		imagenEstado = Herramientas.cargarImagen("recursos/coupacaminando.png");
+		e.dibujarImagen(imagenEstado, this.x, this.y, 0, 0.6);
+
+	}
+	public void DibujarTiranoDer(Entorno e) {
+		imagenEstado = Herramientas.cargarImagen("recursos/coupacaminandoDer.png");
+		e.dibujarImagen(imagenEstado, this.x, this.y, 0, 0.6);
+
 	}
 	
-	public void tocaPared() {
-		if(this.direccion == "Derecha") {
-			this.direccion = "Izquierda";
+	public boolean isSentido() {
+		return sentido;
+	}
+	public void setSentido(boolean sentido) {
+		this.sentido = sentido;
+	}
+	public double getX() {
+		return x;
+	}
+	public void setX(double x) {
+		this.x = x;
+	}
+	public double getY() {
+		return y;
+	}
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	
+	//MOVIMIENTOS TIRANOS
+	public static void movimientosIzq(Tiranosaurio[] dinos, Entorno e,int num) {	
+		
+		dinos[num].x -= 1;
+			
+	}
+	public static void movimientosDer(Tiranosaurio[] dinos, Entorno e,int num) {
+	
+		dinos[num].x += 1;
+
+	}
+	public static void mover(Tiranosaurio[] dinos,int num,Entorno entorno,TiroDino tiro) {
+		if (dinos[num].getX()>=30&&dinos[num].isSentido()== false) {
+			Tiranosaurio.movimientosIzq(dinos, entorno, num);
+			dinos[num].DibujarTiranoIzq(entorno);
+			
+			
+			
 		}
-		else {
-			this.direccion = "Derecha";
+		if (dinos[num].getX()==30) {
+			dinos[num].setSentido(true);
+			
+		}
+		if (dinos[num].getX()<=750&&dinos[num].isSentido()== true) {
+			Tiranosaurio.movimientosDer(dinos, entorno, num);
+			dinos[num].DibujarTiranoDer(entorno);
+			
+			
+		}	
+		if (dinos[num].getX()==750) {
+			dinos[num].setSentido(false);
 		}
 	}
+	
+	
+	// COLISIONES TIRANOS
+	public static void Tiro(TiroDino tiro,Entorno e){
+
+		tiro = new TiroDino (250, 230, false);
+		
+		
+		
+		
+			
+	}
+		
+
+			
+	
 }
