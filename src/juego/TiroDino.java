@@ -46,7 +46,7 @@ public class TiroDino {
 	public void moverse() {
 		if (posicion == true) {
 			x += velocidad;
-			//this.imgTiro = Herramientas.cargarImagen("recursos/tiroDino.png");
+			this.imgTiro = Herramientas.cargarImagen("recursos/tiroDinoDer.png");
 		} else {
 			x -= this.velocidad;
 			this.imgTiro = Herramientas.cargarImagen("recursos/tiroDino.png");

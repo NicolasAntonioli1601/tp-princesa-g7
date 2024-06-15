@@ -38,20 +38,36 @@ public class Juego extends InterfaceJuego {
 		
 		
 		this.dinos = new Tiranosaurio [6];
-		this.tiro = new TiroDino [6];
+		this.tiro = new TiroDino [7];
+			
+		for (int tiros = 0; tiros <tiro.length; tiros++) {
+			if(tiros == 0 ) 
+				tiro[tiros] = new TiroDino (500, 90, false);
+			if(tiros == 1 ) 
+				tiro[tiros] = new TiroDino (200, 90, true);
+			if(tiros == 2 ) 
+				tiro[tiros] = new TiroDino (500, 240, false);
+			if(tiros == 3 ) 
+				tiro[tiros] = new TiroDino (200, 240, true);
+			if(tiros == 4 ) 
+				tiro[tiros] = new TiroDino (530, 390, false);
+			if(tiros == 5 ) 
+				tiro[tiros] = new TiroDino (200, 390, true);
+		}
+		
 		
 			for (int dino = 0; dino <dinos.length; dino++) {
-				for (int tiros = 0; dino <tiro.length; dino++) {
+				
 					
 					
 				
 				
-			if(dino == 0 && tiros==0) 
+			if(dino == 0 ) 
 				this.dinos[dino] = new Tiranosaurio(500, 90, 50, 50,false);
-				tiro[tiros] = new TiroDino (500, 90, false);
+				
 			if(dino == 1)
 				this.dinos[dino] = new Tiranosaurio(200, 90, 50, 50,true);
-				tiro[tiros]= new TiroDino (500, 90, true);
+				
 			if(dino == 2)
 				this.dinos[dino] = new Tiranosaurio(500, 240, 50, 50,false);
 				//tiro[tiros]= new TiroDino (500, 240, false);
@@ -67,7 +83,7 @@ public class Juego extends InterfaceJuego {
 			
 				
 			}
-			}
+			
 			
 		
 		
@@ -104,6 +120,21 @@ public class Juego extends InterfaceJuego {
 		tiro[0].dibujarse(entorno);
 		tiro[0].moverse();
 		
+		tiro[1].dibujarse(entorno);
+		tiro[1].moverse();
+		
+		tiro[2].dibujarse(entorno);
+		tiro[2].moverse();
+		
+		tiro[3].dibujarse(entorno);
+		tiro[3].moverse();
+		
+		tiro[4].dibujarse(entorno);
+		tiro[4].moverse();
+		
+		tiro[5].dibujarse(entorno);
+		tiro[5].moverse();
+		
 //		tiro[1].dibujarse(entorno);
 //		tiro[1].moverse();
 		Tiranosaurio.mover(dinos, 0, entorno, Tiro);
@@ -111,12 +142,12 @@ public class Juego extends InterfaceJuego {
 		
 		
 //		
-//		Tiranosaurio.mover(dinos, 1, entorno, Tiro);
-//		Tiranosaurio.mover(dinos, 2, entorno, Tiro);
-//		Tiranosaurio.mover(dinos, 3, entorno, Tiro);
-//		Tiranosaurio.mover(dinos, 4, entorno, Tiro);
-//		Tiranosaurio.mover(dinos, 5, entorno, Tiro);
-//	
+		Tiranosaurio.mover(dinos, 1, entorno, Tiro);
+		Tiranosaurio.mover(dinos, 2, entorno, Tiro);
+		Tiranosaurio.mover(dinos, 3, entorno, Tiro);
+		Tiranosaurio.mover(dinos, 4, entorno, Tiro);
+		Tiranosaurio.mover(dinos, 5, entorno, Tiro);
+	
 
 		
 		
