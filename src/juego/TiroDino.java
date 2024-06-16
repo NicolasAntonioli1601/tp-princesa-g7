@@ -54,6 +54,7 @@ public class TiroDino {
 
 	}
 
+	
 	public boolean estaEnLimite() {
 		return this.x <= 799 && this.x >= 0;
 

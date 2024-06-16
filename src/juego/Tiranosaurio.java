@@ -12,14 +12,28 @@ public class Tiranosaurio {
 	private double ancho;
 	private Image imagenEstado;
 	private boolean sentido;
+	private boolean quieto;
+	
+	public boolean isQuieto() {
+		return quieto;
+	}
+
+
+
+	public void setQuieto(boolean quieto) {
+		this.quieto = quieto;
+	}
+
+
 	TiroDino a;
 	// CONTRUCTOR
-	public Tiranosaurio(double posicionX, double posicionY, double altura, double ancho,boolean sentido) {
+	public Tiranosaurio(double posicionX, double posicionY, double altura, double ancho,boolean sentido, boolean quieto) {
 		this.x = posicionX;
 		this.y = posicionY;
 		this.altura = altura;
 		this.ancho = ancho;
 		this.sentido = sentido;
+		this.quieto =quieto;
 	}
 	
 	
@@ -62,6 +76,13 @@ public class Tiranosaurio {
 
 	
 	//MOVIMIENTOS TIRANOS
+	public static void caer(Tiranosaurio[] dinos, Entorno e,int num) {	
+			dinos[num].y += 150;
+				
+		
+		
+			
+	}
 	public static void movimientosIzq(Tiranosaurio[] dinos, Entorno e,int num) {	
 		
 		dinos[num].x -= 1;
@@ -73,7 +94,12 @@ public class Tiranosaurio {
 
 	}
 	public static void mover(Tiranosaurio[] dinos,int num,Entorno entorno,TiroDino tiro) {
-		if (dinos[num].getX()>=30&&dinos[num].isSentido()== false) {
+		if(dinos[num].isQuieto()==false) {
+			dinos[num].DibujarTiranocentro(entorno);
+		}
+		
+		
+		if (dinos[num].getX()>=30&&dinos[num].isSentido()== false && dinos[num].isQuieto()) {
 			Tiranosaurio.movimientosIzq(dinos, entorno, num);
 			dinos[num].DibujarTiranoIzq(entorno);
 			
@@ -84,7 +110,7 @@ public class Tiranosaurio {
 			dinos[num].setSentido(true);
 			
 		}
-		if (dinos[num].getX()<=750&&dinos[num].isSentido()== true) {
+		if (dinos[num].getX()<=750&&dinos[num].isSentido()== true && dinos[num].isQuieto()) {
 			Tiranosaurio.movimientosDer(dinos, entorno, num);
 			dinos[num].DibujarTiranoDer(entorno);
 			
@@ -96,16 +122,42 @@ public class Tiranosaurio {
 	}
 	
 	
-	// COLISIONES TIRANOS
-	public static void Tiro(TiroDino tiro,Entorno e){
+	// TiROS TIRANOS
 
-		tiro = new TiroDino (250, 230, false);
 		
+	public static void tiro(Tiranosaurio[] dinos,int dino,Entorno entorno,TiroDino[] tiros,int tiro) {
+		double altura = 0;
+		if (dino ==0 || dino == 1 )
+			altura = 90;
+		if (dino ==2 || dino == 3 )
+			altura = 240;
+		if (dino ==4 || dino == 5 )
+			altura = 390;
 		
-		
-		
-			
+		if (tiros[tiro]!= null&& dinos[dino].isQuieto()==true) {	
+			if(tiros[tiro].estaEnLimite() && dinos[dino].getX()>90 && dinos[dino].getX()<700) {
+				tiros[tiro].dibujarse(entorno);
+				tiros[tiro].moverse();		
+			}
+			else {
+				tiros[tiro] = null;
+				if (tiros[tiro] == null && dinos[dino].isQuieto()==true) {	
+					if (dinos[tiro].isSentido()==false) {
+						tiros[tiro] = new TiroDino (dinos[dino].getX(), altura, false);
+					}else {
+						tiros[tiro] = new TiroDino (dinos[dino].getX(), altura, true);
+					}			
+				}	
+					}
+				}
 	}
+
+		
+	// Colision
+	public static void colisicionDino() {}
+	
+		
+
 		
 
 			

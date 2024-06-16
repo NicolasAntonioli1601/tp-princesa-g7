@@ -203,6 +203,15 @@ public class Cubo {
 		}
 	}
 	
+	
+	public boolean colisionaConDinos(Tiranosaurio[] tiranos) {
+		if(this.isRompible()) {
+			return colision1(this.x, this.y, tiranos[5].getX(), tiranos[5].getY()+60, 30);
+		}
+		else {
+			return colision1(this.x, this.y, tiranos[5].getX(), tiranos[5].getY()+60, 50);
+		}
+	}
 	//public void CuboDestruido (double x,double y,Entorno e) {
 		//Cubo Ladrillo1;
 		//Cubo Ladrillo2;
