@@ -204,12 +204,12 @@ public class Cubo {
 	}
 	
 	
-	public boolean colisionaConDinos(Tiranosaurio[] tiranos) {
+	public boolean colisionaConDinos(Tiranosaurio[] tiranos,int num) {
 		if(this.isRompible()) {
-			return colision1(this.x, this.y, tiranos[5].getX(), tiranos[5].getY()+60, 30);
+			return colision1(this.x, this.y, tiranos[num].getX(), tiranos[num].getY()+60, 30);
 		}
 		else {
-			return colision1(this.x, this.y, tiranos[5].getX(), tiranos[5].getY()+60, 50);
+			return colision1(this.x, this.y, tiranos[num].getX(), tiranos[num].getY()+60, 50);
 		}
 	}
 	//public void CuboDestruido (double x,double y,Entorno e) {
