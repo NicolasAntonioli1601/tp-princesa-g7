@@ -80,16 +80,10 @@ public class Juego extends InterfaceJuego {
 				this.dinos[dino] = new Tiranosaurio(530, 390, 50, 50,false,true);
 				//tiro[tiros]	= new TiroDino (530, 390, false);
 			if(dino == 5)
-				this.dinos[dino] = new Tiranosaurio(200 , 390, 50, 50,true,true);
-				//tiro[tiros]= new TiroDino (200 , 390, true);
-			
-				
+				this.dinos[dino] = new Tiranosaurio(200 , 390, 50, 50,true);
+				//tiro[tiros]= new TiroDino (200 , 390, true);	
 			}
-			
-			
-		
-		
-		this.princesa = new Princesa(400, 500, 50, 50);
+		this.princesa = new Princesa(400, 540, 50, 50);
 		//cubo.Colision(princesa,Fila1Fijo ,Fila1Random );
 		
 		
@@ -150,8 +144,8 @@ public class Juego extends InterfaceJuego {
 		
 		
 		if (this.princesa != null) {
-			//System.out.println(this.princesa.getPiso());
-			if (this.princesa.getCoordenadas().getY() > this.princesa.getPiso())   {		//550
+			System.out.println(this.princesa.getPiso());
+			if (this.princesa.getCoordenadas().getY() < this.princesa.getPiso())   {		//550
 				if(!(this.princesa.getY() > posicionYPiso)) {
 					this.princesa.getCoordenadas().moverYCantidad(false, 10);
 				}
@@ -187,55 +181,21 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		for(int x = 0; x < filas.length; x++) {
-			if(
-				x < 3
-				&&
-				this.princesa.getY() < filas[x].getCoordenadas().getY()
-				&&
-				this.princesa.getY() > filas[x+1].getCoordenadas().getY()
-			) {
-				for(Cubo cubo : filas[x].getCubos()) {
-					if(this.princesa.getX() < cubo.getX() - 20 && this.princesa.getX() > cubo.getX() + 20) {
-						//if (this.princesa.getY() < cubo.getY()){
-							if(!cubo.isRompible()) {
-								princesa.setPiso((int) cubo.getY() + 150);
-							}
-							else {
-								princesa.setPiso((int) cubo.getY());
-							}
-						//}
-					}
-					
-					if(cubo.colisionaConPrincesa(princesa)) {
-						if(cubo.isRompible()) {
-							cubo.setEstado(false);
-						}
-						else {
-							this.princesa.getCoordenadas().moverYCantidad(false, 5);
-							this.princesa.setPiso(filas[x].getCoordenadas().getY() - 150);
+			for(Cubo cubo : filas[x].getCubos()) {
+				if(x < filas.length -1) {
+					if(filas[x].getCoordenadas().getY() > this.princesa.getY()) {
+						if(cubo.getX()-20 < this.princesa.getX() && cubo.getX() < this.princesa.getX()+20) {
+							this.princesa.setPiso(filas[x].getCoordenadas().getY());
 						}
 					}
 				}
-			}
-			if(this.princesa.getY() < filas[x].getCoordenadas().getY()) {
-				for(Cubo cubo : filas[x].getCubos()) {
-					if (this.princesa.getY() < cubo.getY()){
-						if(!cubo.isRompible()) {
-							princesa.setPiso((int) cubo.getY() + 150);
-						}
-						else {
-							princesa.setPiso((int) cubo.getY());
-						}
+				
+				if(cubo.colisionaConPrincesa(princesa)) {
+					if(cubo.isRompible()) {
+						cubo.setEstado(false);
 					}
-					
-					if(cubo.colisionaConPrincesa(princesa)) {
-						if(cubo.isRompible()) {
-							cubo.setEstado(false);
-						}
-						else {
-							this.princesa.getCoordenadas().moverYCantidad(false, 5);
-							this.princesa.setPiso(filas[x].getCoordenadas().getY() - 150);
-						}
+					else {
+						this.princesa.getCoordenadas().moverYCantidad(false, 5);
 					}
 				}
 			}

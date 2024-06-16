@@ -196,10 +196,10 @@ public class Cubo {
 	
 	public boolean colisionaConPrincesa(Princesa princesa) {
 		if(this.isRompible()) {
-			return colision1(this.x, this.y, princesa.getX(), princesa.getY(), 25);
+			return colision1(this.x, this.y, princesa.getX(), princesa.getY(), 50);
 		}
 		else {
-			return colision1(this.x, this.y, princesa.getX(), princesa.getY(), 50);
+			return colision1(this.x, this.y, princesa.getX(), princesa.getY(), 30);
 		}
 	}
 	
