@@ -65,8 +65,15 @@ public class Princesa {
 	}
 
 	public void saltar() {
-		this.imagenEstado = Herramientas.cargarImagen("recursos/princesa-salto.png");
-		this.getCoordenadas().moverYCantidad(true, 20);
+		if(this.getY() > 0) {
+			this.imagenEstado = Herramientas.cargarImagen("recursos/princesa-salto.png");
+			this.getCoordenadas().moverYCantidad(true, 20);
+		}
+		else{
+			this.imagenEstado = Herramientas.cargarImagen("recursos/princesa-salto.png");
+			this.getCoordenadas().setY(0);
+		}
+		
 	}
 
 
