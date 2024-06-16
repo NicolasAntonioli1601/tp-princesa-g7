@@ -112,11 +112,8 @@ public class Juego extends InterfaceJuego {
 		Fila.dibujarFilas(this.filas, entorno);
 	
 		
-<<<<<<< HEAD
 			
 		//System.out.println(tiro[0].getX());
-=======
->>>>>>> e03da0b (dino cae)
 		
 
 
@@ -185,7 +182,6 @@ public class Juego extends InterfaceJuego {
 
 		}
 		
-<<<<<<< HEAD
 		for(int x = 0; x < filas.length; x++) {
 			for(Cubo cubo : filas[x].getCubos()) {
 				if(x < filas.length -1) {
@@ -193,17 +189,6 @@ public class Juego extends InterfaceJuego {
 						if(cubo.getX()-20 < this.princesa.getX() && cubo.getX() < this.princesa.getX()+20) {
 							this.princesa.setPiso(filas[x].getCoordenadas().getY());
 						}
-=======
-		for(Fila fila : this.filas) {
-			for(Cubo cubo : fila.getCubos()) {
-				
-				if (this.princesa.getY() > cubo.getY() + 25){
-					if(!cubo.isRompible()) {
-						princesa.setPiso((int) cubo.getY());
-					}
-					else {
-						princesa.setPiso((int) cubo.getY()-150);
->>>>>>> e03da0b (dino cae)
 					}
 				}
 				
